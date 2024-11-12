@@ -1,0 +1,12 @@
+body {
+    padding: 1rem 3rem;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-container div {
+    width: 40%;
+}
