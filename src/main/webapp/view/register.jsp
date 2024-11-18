@@ -12,7 +12,7 @@
 
 <body class="primary-bg">
     <p class="h1">Register</p>
-    <form action="" method="post" class="h3 form-container">
+    <form action="/JAD_CA1/api/register" method="post" class="h3 form-container">
         <div>
             <label for="firstname">First Name<br></label>
             <input class="form-input" type="text" id="firstname" name="firstname" required>
@@ -35,6 +35,11 @@
             <input class="form-input" type="number" id="unit" name="unit" required>
             <input class="form-button text-danger" name="submit" type="reset" value="Cancel">
             <input class="form-button secondary-bg" name="submit" type="submit" value="Register">
+            <%
+            	if(request.getParameter("errMsg") != null) {
+            		out.print("<p>There was an error during registration</p>");
+            	}
+            %>
         </div>
     </form>
 </body>
