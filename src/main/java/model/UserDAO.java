@@ -19,7 +19,7 @@ public class UserDAO {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
             	User user = new User(rs.getInt("user_id"),rs.getString("first_name"),rs.getString("last_name"), rs.getString("mobile"), 
-            			rs.getString("email"), rs.getString("password"));
+            			rs.getString("email"), rs.getString("password"), rs.getInt("role_id"));
                 userList.add(user);
             }
         }
@@ -40,7 +40,7 @@ public class UserDAO {
     	try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
     		    pstmt.setString(1, user.getPassword());
-    		    pstmt.setInt(2, 2);
+    		    pstmt.setInt(2, user.getRoleId());
     		    pstmt.setString(3, user.getFirstName());
     		    pstmt.setString(4, user.getLastName());
     		    pstmt.setString(5, user.getEmail());
@@ -108,8 +108,8 @@ public class UserDAO {
        	}
     }
     
-    public String getUserPasswordByEmail(String email) throws SQLException{
-    	String password = null;
+    public User getUserByEmail(String email) throws SQLException{
+    	User user = null;
     	
     	String query = "SELECT * FROM cs_user WHERE email = ?";
     	
@@ -118,9 +118,15 @@ public class UserDAO {
     		pstmt.setString(1, email);
     		ResultSet rs = pstmt.executeQuery();
     		if (rs.next()) {
-                password = rs.getString("password");
+               user = new User(rs.getInt("user_id"),
+            		   rs.getString("first_name"),
+            		   rs.getString("last_name"),
+            		   rs.getString("mobile"),
+                       rs.getString("email"),
+                       rs.getString("password"),
+                       rs.getInt("role_id"));
     		}
     	}
-    	return password;
+    	return user;
     }
 }

@@ -5,7 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+
+import model.User;
 import model.UserDAO;
 /**
  * Servlet implementation class LoginServlet
@@ -40,8 +44,10 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		try {
-			String correctPassword = userDAO.getUserPasswordByEmail(email);
-			if(password.equals(correctPassword)) {
+			User user = userDAO.getUserByEmail(email);
+			if(password.equals(user.getPassword())) {
+				HttpSession session = request.getSession();
+	            session.setAttribute("user", user);
 				response.sendRedirect("/JAD_CA1/view/home.jsp");
 			} else {
 				response.sendRedirect("/JAD_CA1/view/login.jsp?errMsg=" + "wrongpassword");

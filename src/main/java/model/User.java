@@ -7,14 +7,16 @@ public class User {
 	private String mobile;
 	private String email;
 	private String password;
+	private int roleId;
 	
-	public User(int id, String firstName, String lastName, String mobile, String email, String password) {	
+	public User(int id, String firstName, String lastName, String mobile, String email, String password, int roleId) {
 		this.id = id;
 		this.firstName = firstName.trim();
 		this.lastName = lastName.trim();
 		this.mobile = mobile.trim();
 		this.email = email.trim();
 		this.password = password.trim();
+		this.roleId = roleId;
 	}
 	
 	public int getId() {
@@ -39,5 +41,14 @@ public class User {
     
     public String getPassword() {
         return password;
+    }
+    
+    public int getRoleId() {
+        return roleId;
+    }
+    
+    @Override
+    public String toString() {
+    	return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", mobile=" + mobile + ", email=" + email + ", password=" + password + ", roleId=" + roleId + "]";
     }
 }
