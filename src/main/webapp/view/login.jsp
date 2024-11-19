@@ -33,7 +33,7 @@
             %>
         </div>
         <div id="login-img">
-            <img src="assets/Cleaner2-02.png" alt="character-2" width="100%">
+            <img src="assets/Cleaner2.png" alt="character-2" width="100%">
         </div>
     </form>
 </body>
