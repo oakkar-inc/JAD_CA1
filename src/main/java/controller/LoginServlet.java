@@ -8,9 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.*;
 
 import model.User;
 import model.UserDAO;
+import model.Address;
+import model.AddressDAO;
 /**
  * Servlet implementation class LoginServlet
  */
@@ -18,6 +21,7 @@ import model.UserDAO;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
+	private AddressDAO addressDAO;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -25,6 +29,7 @@ public class LoginServlet extends HttpServlet {
     public LoginServlet() {
         super();
         userDAO = new UserDAO();
+        addressDAO = new AddressDAO();
     }
 
 	/**
@@ -46,8 +51,12 @@ public class LoginServlet extends HttpServlet {
 		try {
 			User user = userDAO.getUserByEmail(email);
 			if(password.equals(user.getPassword())) {
+				
+				List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
+				
 				HttpSession session = request.getSession();
 	            session.setAttribute("user", user);
+	            session.setAttribute("addressList", addressList);
 				response.sendRedirect("/JAD_CA1/view/home.jsp");
 			} else {
 				response.sendRedirect("/JAD_CA1/view/login.jsp?errMsg=" + "wrongpassword");

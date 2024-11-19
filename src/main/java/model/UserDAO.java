@@ -58,37 +58,7 @@ public class UserDAO {
     	return userId;	
     }
     
-    /**
-     * Insert a new address into address table
-     * @param postal
-     * @param floor
-     * @param unit
-     * @return
-     * @throws SQLException
-     */
-    public int insertAddress(String postal, int floor, int unit) throws SQLException {
-    	int addressId = -1;
-    	
-    	String query = "INSERT INTO cs_address (postal, floor, unit) VALUES (?,?,?)";
-    	
-    	try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-    		    pstmt.setString(1, postal);
-    		    pstmt.setInt(2, floor);
-    		    pstmt.setInt(3, unit);
-    		    
-    		    int affectedRows = pstmt.executeUpdate();
-    		    if (affectedRows > 0) {
-                    try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                        if (rs.next()) {
-                            addressId = rs.getInt(1);
-                        }
-                    }
-                }
-    	}
-    	
-    	return addressId;
-    }
+    
     
     /**
      * Insert a relation between user and address
@@ -108,6 +78,12 @@ public class UserDAO {
        	}
     }
     
+    /**
+     * Get the user information using email
+     * @param email
+     * @return User
+     * @throws SQLException
+     */
     public User getUserByEmail(String email) throws SQLException{
     	User user = null;
     	
@@ -129,4 +105,5 @@ public class UserDAO {
     	}
     	return user;
     }
+    
 }
