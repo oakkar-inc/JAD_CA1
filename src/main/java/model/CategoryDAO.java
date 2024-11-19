@@ -108,12 +108,10 @@ public class CategoryDAO {
     /**
      * Delete category by category id
      * @param categoryId
-     * @return
+     * @return number of affected rows
      * @throws SQLException
      */
-    public int deleteCategory(int categoryId) throws SQLException {
-        int affectedRows = -1;
-        
+    public int deleteCategory(int categoryId) throws SQLException {        
         String query = "DELETE FROM cs_category WHERE category_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
