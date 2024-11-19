@@ -19,7 +19,7 @@
           
             <label for="password">Password<br></label>
             <input class="form-input" type="password" id="password" name="password" required>
-            <input class="form-button text-blue" name="submit" type="reset" value="Continue As Guest">
+            <input id="goBackBtn" class="form-button text-blue" name="submit" type="reset" value="Continue As Guest">
             <input class="form-button secondary-bg" name="submit" type="submit" value="Log in">
             <%
             	String errMsg = request.getParameter("errMsg");
@@ -36,6 +36,8 @@
             <img src="assets/Cleaner2.png" alt="character-2" width="100%">
         </div>
     </form>
+    
+    <script src="script/register.js"></script>
 </body>
 
 </html>

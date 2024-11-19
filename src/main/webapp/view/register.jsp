@@ -33,7 +33,7 @@
             <input class="form-input" type="number" id="floor" name="floor" required>
             <label for="unit">Unit<br></label>
             <input class="form-input" type="number" id="unit" name="unit" required>
-            <input class="form-button text-danger" name="submit" type="reset" value="Cancel">
+            <input id="goBackBtn" class="form-button text-danger" name="submit" type="reset" value="Cancel">
             <input class="form-button secondary-bg" name="submit" type="submit" value="Register">
             <%
             	if(request.getParameter("errMsg") != null) {
@@ -42,6 +42,7 @@
             %>
         </div>
     </form>
+    <script src="script/register.js"></script>
 </body>
 
 </html>

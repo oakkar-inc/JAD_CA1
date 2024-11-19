@@ -47,7 +47,7 @@
                             </p>
                         </div>
                     </a>
-                    <a href="logut.jsp">
+                    <a href="logout.jsp">
                         <div class="sidebar-navitem">
                             <img src="./assets/logout.png">
                             <p>
