@@ -88,21 +88,28 @@ public class CategoryDAO {
      * @return
      * @throws SQLException
      */
-    public int updateCategory(String name, String description, String image_url, int categoryId) throws SQLException {
-        int affectedRows = -1;
-
-        String query = "UPDATE cs_category SET name = ?, description = ?, image_url = ? WHERE category_id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, name);
-            pstmt.setString(2, description);
-            pstmt.setString(3, image_url);
-            pstmt.setInt(4, categoryId);
-
-            affectedRows = pstmt.executeUpdate();
-        }
-        return affectedRows;
+    public int updateCategory(String name, String description, String image_url) throws SQLException {
+    	int categoryId = -1;
+    	
+    	String query = "UPDATE cs_category (name, description, image_url) VALUES (?,?,?) where category_id = ?";
+    	
+    	try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+    		    pstmt.setString(1, name);
+    		    pstmt.setString(2, description);
+    		    pstmt.setString(3, image_url);
+                pstmt.setInt(4, categoryId);
+    		    
+    		    int affectedRows = pstmt.executeUpdate();
+    		    if (affectedRows > 0) {
+                    try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            categoryId = rs.getInt(1);
+                        }
+                    }
+                }
+    	}	
+    	return categoryId;
     }
 
     /**
