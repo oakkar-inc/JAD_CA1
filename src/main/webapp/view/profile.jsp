@@ -16,23 +16,22 @@
 
 <body>
 
-<%
-	User user = (User) session.getAttribute("user");
+
+
+    <%@ include file="navbar.jsp" %>
+    <%
 	if (user == null) {
 		response.sendRedirect("login.jsp");
 	} else {
 		
 	List<Address> addressList = (List<Address>) session.getAttribute("addressList");
 	
-%>
-
-    <div class="navbar"> just a placeholder</div>
-    
+	%>
     <div class="profile-container">
         <div class="sidebar-container">
             <div class="sidebar">
                 <div class="sidebar-nav h3">
-                    <a href="profile.html">
+                    <a href="profile.jsp">
                         <div class="sidebar-navitem">
                             <img src="./assets/user-square.png">
                             <p>
@@ -40,7 +39,7 @@
                             </p>
                         </div>
                     </a>
-                    <a href="history.html">
+                    <a href="history.jsp">
                         <div class="sidebar-navitem">
                             <img src="./assets/refresh-left-square.png">
                             <p>

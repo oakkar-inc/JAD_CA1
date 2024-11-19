@@ -33,11 +33,11 @@
             </ul>
             <ul id="gp-2" class="nav-tab">
                 <% if (user == null) { %>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Sign Up</a></li>
+                    <li><a href="login.jsp">Login</a></li>
+                    <li><a href="register.jsp">Sign Up</a></li>
                 <% } else { %>
                     <% if (roleId == 1 || roleId == 2) { %>
-                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="profile.jsp">Profile</a></li>
                     <% } %>
                 <% } %>
             </ul>
