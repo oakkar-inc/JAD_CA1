@@ -14,10 +14,8 @@
     <p class="h1">Register</p>
     <form action="/JAD_CA1/api/register" method="post" class="h3 form-container">
         <div>
-            <label for="firstname">First Name<br></label>
-            <input class="form-input" type="text" id="firstname" name="firstname" required>
-            <label for="lastname">Last Name<br></label>
-            <input class="form-input" type="text" id="lastname" name="lastname" required>
+            <label for="name">Name<br></label>
+            <input class="form-input" type="text" id="name" name="name" required>
             <label for="email">Email<br></label>
             <input class="form-input" type="email" id="email" name="email" required>
             <label for="mobile">Mobile Number<br></label>

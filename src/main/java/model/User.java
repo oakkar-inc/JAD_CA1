@@ -2,17 +2,15 @@ package model;
 
 public class User {
 	private int id;
-	private String firstName;	
-	private String lastName;
+	private String name;	
 	private String mobile;
 	private String email;
 	private String password;
 	private int roleId;
 	
-	public User(int id, String firstName, String lastName, String mobile, String email, String password, int roleId) {
+	public User(int id, String name, String mobile, String email, String password, int roleId) {
 		this.id = id;
-		this.firstName = firstName.trim();
-		this.lastName = lastName.trim();
+		this.name = name.trim();
 		this.mobile = mobile.trim();
 		this.email = email.trim();
 		this.password = password.trim();
@@ -23,12 +21,8 @@ public class User {
         return id;
     }
 	
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
     
     public String getMobile() {
@@ -49,6 +43,6 @@ public class User {
     
     @Override
     public String toString() {
-    	return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", mobile=" + mobile + ", email=" + email + ", password=" + password + ", roleId=" + roleId + "]";
+    	return "User [id=" + id + ", name=" + name + ", mobile=" + mobile + ", email=" + email + ", password=" + password + ", roleId=" + roleId + "]";
     }
 }

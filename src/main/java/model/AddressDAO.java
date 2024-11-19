@@ -3,6 +3,7 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 public class AddressDAO {
 	/**
@@ -13,7 +14,7 @@ public class AddressDAO {
      */
     public List<Address> getAddressListByUserId(int userId) throws SQLException {
     	List<Address> addressList = new ArrayList<>();
-        String query = "SELECT * FROM cs_address WHERE address_id IN (SELECT address_id FROM cs_user_address WHERE user_id =?)";
+        String query = "SELECT * FROM cs_address WHERE address_id IN (SELECT address_id FROM cs_user_address WHERE user_id =?) ORDER BY address_id";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
                 pstmt.setInt(1, userId);
@@ -56,5 +57,18 @@ public class AddressDAO {
     	}
     	
     	return addressId;
+    }
+    
+    public void updateAddress(Address address) throws SQLException {
+    	String query = "UPDATE cs_address SET postal=?, floor=?, unit=? WHERE address_id=?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+                pstmt.setString(1, address.getPostal());
+                pstmt.setInt(2, address.getFloor());
+                pstmt.setInt(3, address.getUnit());
+                pstmt.setInt(4, address.getId());
+                
+                pstmt.executeUpdate();
+        }
     }
 }

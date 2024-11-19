@@ -73,3 +73,21 @@
 .details-container div {
     width: 40%;
 }
+
+.edit-btn-container {
+    display: flex;
+    align-items: end;
+}
+
+.edit-button {
+    background-color: var(--secondary-color);
+    color: black;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+}

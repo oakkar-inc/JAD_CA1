@@ -18,7 +18,7 @@ public class UserDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-            	User user = new User(rs.getInt("user_id"),rs.getString("first_name"),rs.getString("last_name"), rs.getString("mobile"), 
+            	User user = new User(rs.getInt("user_id"),rs.getString("name"), rs.getString("mobile"), 
             			rs.getString("email"), rs.getString("password"), rs.getInt("role_id"));
                 userList.add(user);
             }
@@ -35,16 +35,15 @@ public class UserDAO {
     public int insertUser(User user) throws SQLException {
     	int userId = -1;
     	
-    	String query = "INSERT INTO cs_user (password, role_id, first_name, last_name, email, mobile) VALUES (?,?,?,?,?,?)";
+    	String query = "INSERT INTO cs_user (password, role_id, name, email, mobile) VALUES (?,?,?,?,?)";
     	
     	try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
     		    pstmt.setString(1, user.getPassword());
     		    pstmt.setInt(2, user.getRoleId());
-    		    pstmt.setString(3, user.getFirstName());
-    		    pstmt.setString(4, user.getLastName());
-    		    pstmt.setString(5, user.getEmail());
-    		    pstmt.setString(6, user.getMobile());
+    		    pstmt.setString(3, user.getName());
+    		    pstmt.setString(4, user.getEmail());
+    		    pstmt.setString(5, user.getMobile());
     		    int affectedRows = pstmt.executeUpdate();
     		    if (affectedRows > 0) {
                     try (ResultSet rs = pstmt.getGeneratedKeys()) {
@@ -95,8 +94,7 @@ public class UserDAO {
     		ResultSet rs = pstmt.executeQuery();
     		if (rs.next()) {
                user = new User(rs.getInt("user_id"),
-            		   rs.getString("first_name"),
-            		   rs.getString("last_name"),
+            		   rs.getString("name"),
             		   rs.getString("mobile"),
                        rs.getString("email"),
                        rs.getString("password"),
@@ -104,6 +102,22 @@ public class UserDAO {
     		}
     	}
     	return user;
+    }
+    
+    public void updateUserInfo(User user) throws SQLException {
+    	String query = "UPDATE cs_user SET name = ?, mobile = ?, email = ?, password = ?, role_id = ? WHERE user_id = ?";
+    	
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        	pstmt.setString(1, user.getName());
+        	pstmt.setString(2, user.getMobile());
+        	pstmt.setString(3, user.getEmail());
+        	pstmt.setString(4, user.getPassword());
+        	pstmt.setInt(5, user.getRoleId());
+        	pstmt.setInt(6, user.getId());
+        	
+        	pstmt.executeUpdate();
+        }
     }
     
 }

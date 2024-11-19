@@ -11,4 +11,24 @@ document.addEventListener('DOMContentLoaded', function() {
 	    newAddressForm.attributes.setNamedItem(document.createAttribute('hidden'));
 	    addAddressBtn.attributes.removeNamedItem('hidden');
 	});
+	
+	const editInfoBtn = document.getElementById('editInfoBtn');
+	    editInfoBtn.addEventListener('click', function() {
+	        const name = document.getElementById('name');
+	        const email = document.getElementById('email');
+	        const mobile = document.getElementById('mobile');
+			const passwordLabel = document.getElementById('passwordLabel');
+			const password = document.getElementById('password');
+	        const saveInfoBtn = document.getElementById('saveInfoBtn');
+	        const editCancelBtn = document.getElementById('editCancelBtn');
+
+	        name.removeAttribute('readonly');
+	        email.removeAttribute('readonly');
+	        mobile.removeAttribute('readonly');
+			passwordLabel.removeAttribute('hidden');
+			password.removeAttribute('hidden');
+	        saveInfoBtn.removeAttribute('hidden');
+	        editInfoBtn.setAttribute('hidden','');
+	        editCancelBtn.removeAttribute('hidden');
+	    });
 });

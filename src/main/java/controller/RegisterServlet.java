@@ -45,8 +45,7 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String firstName = request.getParameter("firstname");
-		String lastName = request.getParameter("lastname");
+		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String mobile = request.getParameter("mobile");
@@ -54,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
 		int floor = Integer.parseInt(request.getParameter("floor"));
 		int unit = Integer.parseInt(request.getParameter("unit"));
 		
-		User user = new User(-1, firstName, lastName, mobile, email, password, 2);
+		User user = new User(-1, name, mobile, email, password, 2);
 		try {
 			int userId = userDAO.insertUser(user);
 			if(userId > 0) {

@@ -8,8 +8,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Address;
 import model.AddressDAO;
+import model.User;
 import model.UserDAO;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -59,6 +64,51 @@ public class AddressServlet extends HttpServlet {
 			System.out.println(e.getMessage());
             return;
 		}
+	}
+	
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Read the JSON body from the request
+        StringBuilder jsonBuilder = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+        }
+
+        // Parse the JSON string
+        String jsonString = jsonBuilder.toString();
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+
+        // Access JSON properties
+        int addressId = jsonObject.get("addressId").getAsInt();
+        String postal = jsonObject.get("postal").getAsString();
+        int floor = jsonObject.get("floor").getAsInt();
+		int unit = jsonObject.get("unit").getAsInt();
+		
+		try {
+			Address address = new Address(addressId, postal, floor, unit);
+            addressDAO.updateAddress(address);
+            
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute("user");
+            if(user.getRoleId() == 2) {
+            	List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
+                session.setAttribute("addressList", addressList);
+                
+                response.sendRedirect("/JAD_CA1/view/profile.jsp");
+                return;
+            }
+            
+            response.sendRedirect("/JAD_CA1/view/profile.jsp");
+            return;
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+            return;
+		}
+		
 	}
 
 }
