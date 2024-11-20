@@ -53,10 +53,9 @@ public class LoginServlet extends HttpServlet {
 			if(password.equals(user.getPassword())) {
 				
 				List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
-				
+				user.setAddresses(addressList);
 				HttpSession session = request.getSession();
 	            session.setAttribute("user", user);
-	            session.setAttribute("addressList", addressList);
 				response.sendRedirect("/JAD_CA1/view/home.jsp");
 			} else {
 				response.sendRedirect("/JAD_CA1/view/login.jsp?errMsg=" + "wrongpassword");

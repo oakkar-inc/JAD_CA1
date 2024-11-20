@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	for (let i = 0; i < deleteBtn.length; i++) {
 		deleteBtn[i].addEventListener('click', function() {
 			const addressId = this.getAttribute('address-id');
+			
 			fetch("/JAD_CA1/api/address/" + addressId, {
 				method: "DELETE"
 			}).then(response => response.json())

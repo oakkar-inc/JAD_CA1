@@ -24,7 +24,7 @@
 		response.sendRedirect("login.jsp");
 	} else {
 
-		List<Address> addressList = (List<Address>) session.getAttribute("addressList");
+		List<Address> addressList = user.getAddresses();
 	%>
 	<div class="profile-container">
 		<div class="sidebar-container">
@@ -87,11 +87,7 @@
 						out.println("<a href='editAddress.jsp?addressId=" + address.getId() + "&postal=" + address.getPostal() + "&floor="
 						+ address.getFloor() + "&unit=" + address.getUnit()
 						+ "'><button class='edit-button' type='button'>Edit</button></a>");
-
-						if (i > 0) {
-							out.println("<button class='delete-button' address-id='" + address.getId() + "' type='button'>Delete</button>");
-						}
-
+						out.println("<button class='delete-button' address-id='" + address.getId() + "' type='button'>Delete</button>");
 						out.println("</div>");
 						out.println("<input class='form-input' type='text' id='address-" + addressNo + "' name='address-" + addressNo
 						+ "' value='" + addressStr + "' readonly>");
@@ -102,8 +98,10 @@
 					<br>
 					<form action="/JAD_CA1/api/address" method="post"
 						id="newAddressForm" hidden>
-						<label class="h2" for="password">New Address<br></label> <input
-							hidden name="userId" value=<%=user.getId()%>> <label
+						<label class="h2" for="password">New Address<br></label>
+						<input hidden name="userId" value=<%=user.getId()%>>
+						<input hidden name="byAdmin" value="false">
+						<label
 							for="postal">Postal Code<br></label> <input
 							class="form-input" type="number" id="postal" name="postal"
 							required> <label for="floor">Floor<br></label> <input

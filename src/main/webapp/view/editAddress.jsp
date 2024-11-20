@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Edit address</title>
     <link rel="stylesheet" href="style/global.css">
     <link rel="stylesheet" href="style/editAddress.css">
 </head>

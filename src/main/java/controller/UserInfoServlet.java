@@ -7,9 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.UserDAO;
+import model.Address;
+import model.AddressDAO;
 import model.User;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Servlet implementation class UserInfoServlet
@@ -18,12 +21,14 @@ import java.io.IOException;
 public class UserInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserDAO userDAO;   
+    private AddressDAO addressDAO;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UserInfoServlet() {
         super();
         userDAO = new UserDAO();
+        addressDAO = new AddressDAO();
     }
 
 	/**
@@ -44,12 +49,21 @@ public class UserInfoServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		int roleId = Integer.parseInt(request.getParameter("roleId"));
+		Boolean byAdmin = Boolean.parseBoolean(request.getParameter("byAdmin"));
 		User user = new User(userId, name, mobile, email, password, roleId);
 		try {
 			userDAO.updateUserInfo(user);
-			HttpSession session = request.getSession(false);
-            session.setAttribute("user", user);
-            response.sendRedirect("/JAD_CA1/view/profile.jsp");
+			List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
+			user.setAddresses(addressList);
+			
+            if(byAdmin) {
+            	response.sendRedirect("/JAD_CA1/view/manageUser");
+            } else {
+            	HttpSession session = request.getSession(false);
+                session.setAttribute("user", user);
+                response.sendRedirect("/JAD_CA1/view/profile.jsp");
+            }
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

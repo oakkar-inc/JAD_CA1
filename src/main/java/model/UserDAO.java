@@ -13,7 +13,7 @@ public class UserDAO {
      */
     public List<User> getAllUsers() throws SQLException {
         List<User> userList = new ArrayList<>();
-        String query = "SELECT * FROM cs_user";  // SQL query to fetch all users
+        String query = "SELECT * FROM cs_user ORDER BY user_id";  // SQL query to fetch all users
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
@@ -118,6 +118,17 @@ public class UserDAO {
         	
         	pstmt.executeUpdate();
         }
+    }
+    
+    
+    public void deleteUser(int userId) throws SQLException {
+    	String query = "DELETE FROM cs_user WHERE user_id =?";
+    	try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    		    pstmt.setInt(1, userId);
+    		    
+                pstmt.executeUpdate();
+    	}
     }
     
 }
