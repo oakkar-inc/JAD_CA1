@@ -49,6 +49,7 @@
 		</div>
 		<div class="main-content">
 		<div>
+			<a href="addUser.jsp"><button style="margin: 2rem;" class="form-button secondary-bg">Add new user</button></a>
 			<input id="byAdmin" value="true" hidden>
 			<%
 			for (User curUser : userList) {
@@ -62,7 +63,7 @@
 						<input hidden name="byAdmin" value="true">
 						<div class="edit-btn-container">
 							<label for="name">Name<br></label>
-							<button class="delete-button" type="button">Delete</button>
+							<button class="delete-button-user delete-button" data-user-id=<%=curUser.getId() %> type="button">Delete</button>
 						</div>
 						<input class="form-input" type="text" id="name" name="name" value=<%=curUser.getName()%> > 
 						<label for="mobile">Mobile<br></label>
@@ -85,7 +86,7 @@
 						out.println("<a href='editAddress.jsp?addressId=" + address.getId() + "&postal=" + address.getPostal() + "&floor="
 						+ address.getFloor() + "&unit=" + address.getUnit()
 						+ "&byAdmin=true" + "'><button class='edit-button' type='button'>Edit</button></a>");
-						out.println("<button class='delete-button' address-id='" + address.getId() + "' type='button'>Delete</button>");
+						out.println("<button class='delete-button-address delete-button' data-address-id='" + address.getId() + "' type='button'>Delete</button>");
 						out.println("</div>");
 						out.println("<input class='form-input' type='text' id='address-" + addressNo + "' name='address-" + addressNo
 						+ "' value='" + addressStr + "' readonly>");
@@ -95,12 +96,8 @@
 					<button class="form-button secondary-bg" class="addAddressBtns">+ Add new address</button>
 					</a>
 					<br>
-			
 				</div>
-
 			</div>
-
-		</div>
 		<hr>
 		<%
 		}

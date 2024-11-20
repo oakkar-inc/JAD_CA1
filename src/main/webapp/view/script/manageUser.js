@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
-	const delBtns = document.getElementsByClassName("delete-button");
+	const delBtns = document.getElementsByClassName("delete-button-address");
 	for (let i = 0; i < delBtns.length; i++) {
 		
 		delBtns[i].addEventListener("click", function() {
-			const addressId = this.getAttribute("address-id");
-			console.log("deleteting " + addressId)
+			const addressId = this.getAttribute("data-address-id");
+			console.log("delete address: " + addressId);
 			fetch(`/JAD_CA1/api/address/${addressId}`, {
 				method: "DELETE"
 			}).then(() => location.href = "manageUser")
@@ -16,4 +16,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 		});
 	}
+	
+	const delUserBtns = document.getElementsByClassName("delete-button-user");
+		for (let i = 0; i < delBtns.length; i++) {
+			
+			delUserBtns[i].addEventListener("click", function() {
+				
+				const userId = this.getAttribute("data-user-id");
+				console.log("delete uesr: " + userId);
+				fetch(`/JAD_CA1/api/user/${userId}`, {
+					method: "DELETE"
+				}).then(() => location.href = "manageUser")
+					.catch(error => {
+						console.error('Error:', error)
+						location.href = "manageUser"
+					});
+
+
+			})
+		}
 })

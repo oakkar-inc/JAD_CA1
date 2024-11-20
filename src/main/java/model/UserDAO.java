@@ -120,4 +120,15 @@ public class UserDAO {
         }
     }
     
+    
+    public void deleteUser(int userId) throws SQLException {
+    	String query = "DELETE FROM cs_user WHERE user_id =?";
+    	try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    		    pstmt.setInt(1, userId);
+    		    
+                pstmt.executeUpdate();
+    	}
+    }
+    
 }
