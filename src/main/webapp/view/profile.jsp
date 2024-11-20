@@ -24,7 +24,7 @@
 		response.sendRedirect("login.jsp");
 	} else {
 
-		List<Address> addressList = (List<Address>) session.getAttribute("addressList");
+		List<Address> addressList = user.getAddresses();
 	%>
 	<div class="profile-container">
 		<div class="sidebar-container">

@@ -96,7 +96,8 @@ public class AddressServlet extends HttpServlet {
             User user = (User) session.getAttribute("user");
             
           	List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
-            session.setAttribute("addressList", addressList);
+          	user.setAddresses(addressList);
+            session.setAttribute("user", user);
             
             response.sendRedirect("/JAD_CA1/view/profile.jsp");
             return;
@@ -117,9 +118,9 @@ public class AddressServlet extends HttpServlet {
             
             HttpSession session = request.getSession(false);
             User user = (User) session.getAttribute("user");
-           
             List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
-            session.setAttribute("addressList", addressList);
+            user.setAddresses(addressList);
+            session.setAttribute("user", user);
     
             response.sendRedirect("/JAD_CA1/view/profile.jsp");
             return;
