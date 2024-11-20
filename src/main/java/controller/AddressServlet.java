@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Servlet implementation class AddressServlet
  */
-@WebServlet("/api/address")
+@WebServlet("/api/address/*")
 public class AddressServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UserDAO userDAO;
@@ -94,13 +94,9 @@ public class AddressServlet extends HttpServlet {
             
             HttpSession session = request.getSession(false);
             User user = (User) session.getAttribute("user");
-            if(user.getRoleId() == 2) {
-            	List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
-                session.setAttribute("addressList", addressList);
-                
-                response.sendRedirect("/JAD_CA1/view/profile.jsp");
-                return;
-            }
+            
+          	List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
+            session.setAttribute("addressList", addressList);
             
             response.sendRedirect("/JAD_CA1/view/profile.jsp");
             return;
@@ -110,5 +106,27 @@ public class AddressServlet extends HttpServlet {
 		}
 		
 	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String pathInfo = request.getPathInfo();
+		int addressId = Integer.parseInt(pathInfo.substring(1));
+        
+        try {
+            addressDAO.deleteAddress(addressId);
+            
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute("user");
+           
+            List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
+            session.setAttribute("addressList", addressList);
+    
+            response.sendRedirect("/JAD_CA1/view/profile.jsp");
+            return;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+    }
 
 }

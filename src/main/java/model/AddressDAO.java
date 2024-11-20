@@ -71,4 +71,15 @@ public class AddressDAO {
                 pstmt.executeUpdate();
         }
     }
+    
+    public void deleteAddress(int addressId) throws SQLException {
+    	
+    	String query = "DELETE FROM cs_address WHERE address_id =?";
+    	try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    		    pstmt.setInt(1, addressId);
+    		    
+                pstmt.executeUpdate();
+    	}
+    }
 }
