@@ -21,10 +21,12 @@
     %>
 
     <nav class="primary-bg nav-bar">
-        <img src="assets/logo.png" alt="logo">
+        <a href="home.jsp">
+    		<img src="assets/logo.png" alt="logo">
+		</a>
         <div class="tab-list">
             <ul id="gp-1" class="nav-tab">
-                <li><a href="services.html">Services</a></li>
+                <li><a href="category">Services</a></li>
                 <% if (user != null && roleId != null) { %>
                     <% if (roleId == 1) { %>
                         <li><a href="dashboard.html">Dashboard</a></li>
