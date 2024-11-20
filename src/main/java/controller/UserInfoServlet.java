@@ -49,14 +49,21 @@ public class UserInfoServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		int roleId = Integer.parseInt(request.getParameter("roleId"));
+		Boolean byAdmin = Boolean.parseBoolean(request.getParameter("byAdmin"));
 		User user = new User(userId, name, mobile, email, password, roleId);
 		try {
 			userDAO.updateUserInfo(user);
 			List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
 			user.setAddresses(addressList);
-			HttpSession session = request.getSession(false);
-            session.setAttribute("user", user);
-            response.sendRedirect("/JAD_CA1/view/profile.jsp");
+			
+            if(byAdmin) {
+            	response.sendRedirect("/JAD_CA1/view/manageUser");
+            } else {
+            	HttpSession session = request.getSession(false);
+                session.setAttribute("user", user);
+                response.sendRedirect("/JAD_CA1/view/profile.jsp");
+            }
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

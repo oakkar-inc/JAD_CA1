@@ -51,13 +51,20 @@ public class AddressServlet extends HttpServlet {
 		int floor = Integer.parseInt(request.getParameter("floor"));
 		int unit = Integer.parseInt(request.getParameter("unit"));
 		int userId = Integer.parseInt(request.getParameter("userId"));
+		Boolean byAdmin = Boolean.parseBoolean(request.getParameter("byAdmin"));
 		try {
 			int addressId = addressDAO.insertAddress(postal, floor, unit);
 	        userDAO.insertUserAddressRelation(userId, addressId);
 	        
+	        if (byAdmin) {
+	        	response.sendRedirect("/JAD_CA1/view/manageUser");
+	        	return;
+	        }
+	        
 	        List<Address> addressList = addressDAO.getAddressListByUserId(userId);
-            HttpSession session = request.getSession();
-            session.setAttribute("addressList", addressList);
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute("user");
+            user.setAddresses(addressList);
 			response.sendRedirect("/JAD_CA1/view/profile.jsp");
             return;
 		} catch (Exception e ) {
@@ -87,10 +94,16 @@ public class AddressServlet extends HttpServlet {
         String postal = jsonObject.get("postal").getAsString();
         int floor = jsonObject.get("floor").getAsInt();
 		int unit = jsonObject.get("unit").getAsInt();
+		Boolean byAdmin = jsonObject.get("byAdmin").getAsBoolean() || false;
 		
 		try {
 			Address address = new Address(addressId, postal, floor, unit);
             addressDAO.updateAddress(address);
+            
+            if(byAdmin) {
+            	response.sendRedirect("/JAD_CA1/view/manageUser");
+                return;
+            }
             
             HttpSession session = request.getSession(false);
             User user = (User) session.getAttribute("user");
@@ -111,10 +124,18 @@ public class AddressServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String pathInfo = request.getPathInfo();
+		System.out.println(pathInfo);
 		int addressId = Integer.parseInt(pathInfo.substring(1));
+		
+		Boolean byAdmin = false;
         
         try {
             addressDAO.deleteAddress(addressId);
+            
+            if(byAdmin) {
+            	response.sendRedirect("/JAD_CA1/view/manageUser");
+                return;
+            }
             
             HttpSession session = request.getSession(false);
             User user = (User) session.getAttribute("user");

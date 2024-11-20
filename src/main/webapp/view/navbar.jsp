@@ -27,7 +27,7 @@
                 <li><a href="services.html">Services</a></li>
                 <% if (user != null && roleId != null) { %>
                     <% if (roleId == 1) { %>
-                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="manageUser">Dashboard</a></li>
                     <% } %>
                 <% } %>
             </ul>

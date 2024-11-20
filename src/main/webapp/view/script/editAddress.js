@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	        const postal = document.getElementById('postal').value;
 	        const floor = document.getElementById('floor').value;
 	        const unit = document.getElementById('unit').value;
+			
+			const urlParams = new URLSearchParams(window.location.search);
+			const byAdmin = urlParams.get("byAdmin") || false;
+			
 
 	        fetch("/JAD_CA1/api/address", {
 	            method: "PUT",
@@ -23,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	                addressId: addressId,
 	                postal: postal,
 	                floor: floor,
-	                unit: unit
+	                unit: unit,
+					byAdmin: byAdmin
 	            })
 	        }).then(response => response.json())
 			  .then(() => location.href="profile.jsp")

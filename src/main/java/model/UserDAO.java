@@ -13,7 +13,7 @@ public class UserDAO {
      */
     public List<User> getAllUsers() throws SQLException {
         List<User> userList = new ArrayList<>();
-        String query = "SELECT * FROM cs_user";  // SQL query to fetch all users
+        String query = "SELECT * FROM cs_user ORDER BY user_id";  // SQL query to fetch all users
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
