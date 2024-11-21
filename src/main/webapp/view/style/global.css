@@ -33,13 +33,13 @@ body {
 .h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 00;
 }
 
 .text-cta {
@@ -96,15 +96,33 @@ body {
     color: #EF1919;
 }
 
-.primary-btn {
+.btn-primary {
     background-color: var(--secondary-color);
     color: black;
     padding : 15px 30px 15px 30px;
     border-radius: 50px;
     border: none;
+    text-decoration: none;
 }
 
-.primary-btn:hover {
+.btn-primary:hover {
+    color: rgb(52, 52, 52);
+    background-color: #fbe765;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: var(--primary-color);
+    color: white;
+    padding : 15px 30px 15px 30px;
+    border-radius: 50px;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    color: rgb(220, 220, 220);
+    background-color: #2b67c8;
     cursor: pointer;
 }
 

@@ -1,5 +1,7 @@
 package model;
 
+import org.HdrHistogram.AbstractHistogram;
+
 public class Service {
 	private int serviceId;
 	private String name;	
@@ -13,6 +15,7 @@ public class Service {
         this.name = name;
         this.price = price;
         this.details = details;
+        this.image_url=	image_url;
         this.categoryId = categoryId;
     }
 	

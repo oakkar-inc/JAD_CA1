@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -45,8 +44,6 @@ public class CategoryServlet extends HttpServlet {
             e.printStackTrace();  // Or use a logger to log the error
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving categories.");
         }
-
-        response.getWriter().append("Served at: ").append(request.getContextPath());
     }
 
 
