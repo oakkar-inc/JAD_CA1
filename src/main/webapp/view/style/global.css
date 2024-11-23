@@ -68,10 +68,23 @@ body {
 }
 
 .form-input {
+    font-family: 'Open Sans', sans-serif;
     height: 60px;
     border-radius: 5px;
     border: 1px solid #ffffff;
     width: 100%;
+    margin: 1rem 0 1.5rem 0;
+    font-size: 24px;
+    padding-left: 1rem;
+    border: none;
+}
+
+.form-input-long {
+    font-family: 'Open Sans', sans-serif;
+    height: 300px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    width: 30vw;
     margin: 1rem 0 1.5rem 0;
     font-size: 24px;
     padding-left: 1rem;
@@ -142,3 +155,18 @@ body {
     margin: 0;
 }
 
+.service-price-container {
+    display: flex;
+    max-width: 450px;
+    justify-content: start;
+}
+
+.service-price-container * {
+    max-width: 90%;
+    flex: 1;
+    margin: 10px 10px 10px 0;
+}
+
+a {
+	text-decoration: none;
+}

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/global.css">
     <link rel="stylesheet" href="style/register.css">
 </head>
+<%@ include file="adminCheck.jsp" %>
 
 <body class="primary-bg">
     <p class="h1">Add User</p>

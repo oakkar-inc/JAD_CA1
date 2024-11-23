@@ -16,7 +16,7 @@
 <body>
 	<%@ include file="navbar.jsp"%>
 	<%
-	if(user.getRoleId() != 1) {
+	if(user == null || user.getRoleId() != 1) {
 		response.sendRedirect("logout.jsp");
 	}
 	%>
@@ -25,28 +25,7 @@
 	List<User> userList = (List<User>) request.getAttribute("userList");
 	%>
 	<div class="profile-container">
-		<div class="sidebar-container">
-			<div class="sidebar">
-				<div class="sidebar-nav h3">
-					<a href="manageUser.html">
-						<div class="sidebar-navitem">
-							<img src="assets/user-square.png">
-							<p>User</p>
-						</div>
-					</a> <a href="history.html">
-						<div class="sidebar-navitem">
-							<img src="assets/refresh-left-square.png">
-							<p>Category</p>
-						</div>
-					</a> <a href="home.html">
-						<div class="sidebar-navitem">
-							<img src="assets/logout.png">
-							<p>Service</p>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
+		<%@ include file="adminSidebar.html" %>
 		<div class="main-content">
 		<div>
 			<a href="addUser.jsp"><button style="margin: 2rem;" class="form-button secondary-bg">Add new user</button></a>
@@ -65,7 +44,7 @@
 							<label for="name">Name<br></label>
 							<button class="delete-button-user delete-button" data-user-id=<%=curUser.getId() %> type="button">Delete</button>
 						</div>
-						<input class="form-input" type="text" id="name" name="name" value=<%=curUser.getName()%> > 
+						<input class="form-input" type="text" id="name" name="name" value="<%=curUser.getName()%>" > 
 						<label for="mobile">Mobile<br></label>
 						<input class="form-input" type="text" id="mobile" name="mobile" value=<%=curUser.getMobile()%> >
 						<label for="email">Email<br></label>
@@ -102,7 +81,7 @@
 		<%
 		}
 		%>
-		
+		</div>
 	</div>
 	</div>
 	<script src="script/profile.js"></script>

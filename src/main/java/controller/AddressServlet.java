@@ -124,7 +124,6 @@ public class AddressServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String pathInfo = request.getPathInfo();
-		System.out.println(pathInfo);
 		int addressId = Integer.parseInt(pathInfo.substring(1));
 		
 		Boolean byAdmin = false;

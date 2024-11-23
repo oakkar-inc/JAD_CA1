@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="style/editAddress.css">
 </head>
 <body class="secondary-bg">
+<%@ include file="adminCheck.jsp" %>
 <%
 	int userId = Integer.parseInt(request.getParameter("userId"));
 %>
     <div class="container">
         <div class="form-container primary-bg">
-            <form action="/JAD_CA1//api/address" method="post" class="h3">
+            <form action="/JAD_CA1/api/address" method="post" class="h3">
                 <p class="h1">Add Address</p>
                 <input hidden name="userId" id="userId" value=<%= userId%>>
                 <input hidden name="byAdmin" id="userId" value="true">

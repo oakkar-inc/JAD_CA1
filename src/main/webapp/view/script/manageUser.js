@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 		
 		delBtns[i].addEventListener("click", function() {
 			const addressId = this.getAttribute("data-address-id");
-			console.log("delete address: " + addressId);
 			fetch(`/JAD_CA1/api/address/${addressId}`, {
 				method: "DELETE"
 			}).then(() => location.href = "manageUser")
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 			delUserBtns[i].addEventListener("click", function() {
 				
 				const userId = this.getAttribute("data-user-id");
-				console.log("delete uesr: " + userId);
 				fetch(`/JAD_CA1/api/user/${userId}`, {
 					method: "DELETE"
 				}).then(() => location.href = "manageUser")

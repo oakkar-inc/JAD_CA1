@@ -59,8 +59,8 @@ public class RegisterServlet extends HttpServlet {
 			if(userId > 0) {
 				int addressId = addressDAO.insertAddress(postal, floor, unit);
                 userDAO.insertUserAddressRelation(userId, addressId);
-                
-                List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
+                user.setId(userId);
+                List<Address> addressList = addressDAO.getAddressListByUserId(userId);
                 user.setAddresses(addressList);
                 HttpSession session = request.getSession();
 	            session.setAttribute("user", user);
