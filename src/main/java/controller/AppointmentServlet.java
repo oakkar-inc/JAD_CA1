@@ -6,59 +6,54 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
 import model.Category;
 import model.Service;
-import model.Category;
+import model.Address;
+import model.Appointment;
+import model.AddressDAO;
 import model.ServiceDAO;
 import model.CategoryDAO;
-import model.Address;
-import model.AddressDAO;
+import model.AppointmentDAO;
 import model.User;
 
-/**
- * Servlet implementation class AppointmentServlet
- */
 @WebServlet("/view/appointment")
 public class AppointmentServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private ServiceDAO serviceDAO;
+    private static final long serialVersionUID = 1L;
+    private ServiceDAO serviceDAO;
     private CategoryDAO categoryDAO;
     private AddressDAO addressDAO;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private AppointmentDAO appointmentDAO;
+
     public AppointmentServlet() {
         super();
-        // TODO Auto-generated constructor stub
-		serviceDAO = new ServiceDAO();
+        serviceDAO = new ServiceDAO();
         categoryDAO = new CategoryDAO();
         addressDAO = new AddressDAO();
+        appointmentDAO = new AppointmentDAO();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String serIdParam = request.getParameter("serId");
+    // Handle GET request to display the booking form
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String serIdParam = request.getParameter("serId");
         String catIdParam = request.getParameter("catId");
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
-        }else {
+        } else {
             int userId = user.getId();
             List<Address> addressList = null;
-			try {
-				addressList = addressDAO.getAddressListByUserId(userId);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            try {
+                addressList = addressDAO.getAddressListByUserId(userId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             request.setAttribute("addressList", addressList);
         }
 
@@ -72,7 +67,7 @@ public class AppointmentServlet extends HttpServlet {
             int categoryId = Integer.parseInt(catIdParam);
 
             // Retrieve service details
-			Service service = serviceDAO.getServiceByServiceId(serviceId);
+            Service service = serviceDAO.getServiceByServiceId(serviceId);
             Category category = categoryDAO.getCategoryById(categoryId);
 
             if (service == null || category == null) {
@@ -83,7 +78,7 @@ public class AppointmentServlet extends HttpServlet {
             request.setAttribute("service", service);
             request.setAttribute("category", category);
 
-            // Forward to service.jsp
+            // Forward to appointment.jsp
             request.getRequestDispatcher("/view/appointment.jsp").forward(request, response);
 
         } catch (NumberFormatException e) {
@@ -92,14 +87,70 @@ public class AppointmentServlet extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving data from the database.");
         }
-	}
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    // Handle POST request to save the appointment and redirect accordingly
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String action = request.getParameter("action");
 
+        // Get form data
+        User user = (User) request.getSession().getAttribute("user");
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        int addressId = Integer.parseInt(request.getParameter("address"));
+        String specialRequest = request.getParameter("special-request");
+        String dateStr = request.getParameter("date");
+
+        Date appointmentDate = null;
+
+        if (dateStr != null && !dateStr.isEmpty()) {
+            appointmentDate = Date.valueOf(dateStr);  
+        }
+
+        int statusId = 1;  
+        Double rating = request.getParameter("rating") != null ? Double.parseDouble(request.getParameter("rating")) : null;
+        String feedback = request.getParameter("feedback");
+
+
+        int serviceId = Integer.parseInt(request.getParameter("serId"));
+        int categoryId = Integer.parseInt(request.getParameter("catId"));
+
+        try {
+            Appointment appointment = new Appointment();
+            appointment.setUserId(user.getId());
+            appointment.setStatusId(statusId);
+            appointment.setBookingName(name);
+            appointment.setBookingPhone(phone);
+            appointment.setAddressId(addressId);
+            appointment.setSpecialRequest(specialRequest);
+            appointment.setAppointmentDate(appointmentDate);
+            appointment.setRating(rating);
+            appointment.setFeedback(feedback);
+            appointment.setServiceId(serviceId);  
+            appointment.setCategoryId(categoryId);  
+
+            // Insert appointment into the database
+            int appointmentId = appointmentDAO.insertAppointment(
+                    appointment.getUserId(),
+                    appointment.getStatusId(),
+                    appointment.getBookingName(),
+                    appointment.getBookingPhone(),
+                    appointment.getAddressId(),
+                    appointment.getAppointmentDate(),
+                    appointment.getSpecialRequest(),
+                    appointment.getRating(),
+                    appointment.getFeedback(),
+                    appointment.getServiceId(),
+                    appointment.getCategoryId()
+            );
+
+            // Redirect to service history page after successful booking
+            response.sendRedirect(request.getContextPath() + "/view/serviceHistory");  
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error inserting appointment into the database.");
+        }
+    }
 }

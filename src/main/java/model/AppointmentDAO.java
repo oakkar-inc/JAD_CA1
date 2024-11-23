@@ -20,11 +20,15 @@ public class AppointmentDAO {
             while (rs.next()) {
                 Appointment appointment = new Appointment(
                         rs.getInt("appointment_id"),
-                        rs.getInt("user_address_id"),
-                        rs.getInt("service_id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("service_id"),  // Added service_id
+                        rs.getInt("category_id"), // Added category_id
+                        rs.getString("booking_name"),
                         rs.getInt("status_id"),
-                        rs.getDate("date"),
+                        rs.getString("booking_phone"),
+                        rs.getInt("address_id"),
                         rs.getString("special_request"),
+                        rs.getDate("date"),
                         rs.getDouble("rating"),
                         rs.getString("feedback")
                 );
@@ -42,7 +46,7 @@ public class AppointmentDAO {
      */
     public Appointment getAppointmentById(int appointmentId) throws SQLException {
         Appointment appointment = null;
-        String query = "SELECT * FROM cs_appointment WHERE appointment_id = ?"; 
+        String query = "SELECT * FROM cs_appointment WHERE appointment_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, appointmentId);
@@ -50,11 +54,15 @@ public class AppointmentDAO {
                 if (rs.next()) {
                     appointment = new Appointment(
                             rs.getInt("appointment_id"),
-                            rs.getInt("user_address_id"),
-                            rs.getInt("service_id"),
+                            rs.getInt("user_id"),
+                            rs.getInt("service_id"),  // Added service_id
+                            rs.getInt("category_id"), // Added category_id
+                            rs.getString("booking_name"),
                             rs.getInt("status_id"),
-                            rs.getDate("date"),
+                            rs.getString("booking_phone"),
+                            rs.getInt("address_id"),
                             rs.getString("special_request"),
+                            rs.getDate("date"),
                             rs.getDouble("rating"),
                             rs.getString("feedback")
                     );
@@ -66,29 +74,53 @@ public class AppointmentDAO {
 
     /**
      * Insert a new appointment into the cs_appointment table
-     * @param userAddressId
-     * @param serviceId
+     * @param userId
      * @param statusId
+     * @param bookingName
+     * @param bookingPhone
+     * @param addressId
      * @param appointmentDate
      * @param specialRequest
      * @param rating
      * @param feedback
+     * @param serviceId
+     * @param categoryId
      * @return appointmentId
      * @throws SQLException
      */
-    public int insertAppointment(int userAddressId, int serviceId, int statusId, Date appointmentDate,
-                                 String specialRequest, Double rating, String feedback) throws SQLException {
+    public int insertAppointment(int userId, int statusId, String bookingName, String bookingPhone, int addressId,
+                             Date appointmentDate, String specialRequest, Double rating, String feedback, 
+                             int serviceId, int categoryId) throws SQLException {
         int appointmentId = -1;
-        String query = "INSERT INTO cs_appointment (user_address_id, service_id, status_id, date, special_request, rating, feedback) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO cs_appointment (user_id, status_id, booking_name, booking_phone, address_id, date, " +
+                       "special_request, rating, feedback, service_id, category_id) " +
+                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setInt(1, userAddressId);
-            pstmt.setInt(2, serviceId);
-            pstmt.setInt(3, statusId);
-            pstmt.setDate(4, appointmentDate);
-            pstmt.setString(5, specialRequest);
-            pstmt.setDouble(6, rating);
-            pstmt.setString(7, feedback);
+
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, statusId);
+            pstmt.setString(3, bookingName);
+            pstmt.setString(4, bookingPhone);
+            pstmt.setInt(5, addressId);
+            pstmt.setDate(6, appointmentDate);
+            pstmt.setString(7, specialRequest);
+
+            if (rating == null) {
+                pstmt.setNull(8, Types.DOUBLE); 
+            } else {
+                pstmt.setDouble(8, rating); 
+            }
+
+            if (feedback == null) {
+                pstmt.setNull(9, Types.VARCHAR); 
+            } else {
+                pstmt.setString(9, feedback);  
+            }
+
+            pstmt.setInt(10, serviceId);  // Set service_id
+            pstmt.setInt(11, categoryId); // Set category_id
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -104,30 +136,41 @@ public class AppointmentDAO {
 
     /**
      * Update appointment by appointment id
-     * @param userAddressId
-     * @param serviceId
+     * @param userId
      * @param statusId
+     * @param bookingName
+     * @param bookingPhone
+     * @param addressId
      * @param appointmentDate
      * @param specialRequest
      * @param rating
      * @param feedback
+     * @param serviceId
+     * @param categoryId
      * @param appointmentId
-     * @return
+     * @return number of affected rows
      * @throws SQLException
      */
-    public int updateAppointment(int userAddressId, int serviceId, int statusId, Date appointmentDate,
-                                 String specialRequest, Double rating, String feedback, int appointmentId) throws SQLException {
-        String query = "UPDATE cs_appointment SET user_address_id = ?, service_id = ?, status_id = ?, date = ?, special_request = ?, rating = ?, feedback = ? WHERE appointment_id = ?";
+    public int updateAppointment(int userId, int statusId, String bookingName, String bookingPhone, int addressId,
+                                 Date appointmentDate, String specialRequest, Double rating, String feedback, 
+                                 int serviceId, int categoryId, int appointmentId) throws SQLException {
+        String query = "UPDATE cs_appointment SET user_id = ?, status_id = ?, booking_name = ?, booking_phone = ?, address_id = ?, " +
+                       "date = ?, special_request = ?, rating = ?, feedback = ?, service_id = ?, category_id = ? " +
+                       "WHERE appointment_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, userAddressId);
-            pstmt.setInt(2, serviceId);
-            pstmt.setInt(3, statusId);
-            pstmt.setDate(4, appointmentDate);
-            pstmt.setString(5, specialRequest);
-            pstmt.setDouble(6, rating);
-            pstmt.setString(7, feedback);
-            pstmt.setInt(8, appointmentId);
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, statusId);  // Added status_id
+            pstmt.setString(3, bookingName);
+            pstmt.setString(4, bookingPhone);
+            pstmt.setInt(5, addressId);
+            pstmt.setDate(6, appointmentDate);
+            pstmt.setString(7, specialRequest);
+            pstmt.setDouble(8, rating);
+            pstmt.setString(9, feedback);
+            pstmt.setInt(10, serviceId); // Set service_id
+            pstmt.setInt(11, categoryId); // Set category_id
+            pstmt.setInt(12, appointmentId);
 
             return pstmt.executeUpdate();
         }

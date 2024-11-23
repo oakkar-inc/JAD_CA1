@@ -1,4 +1,3 @@
-// Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
     // Function to get the current date adjusted to Singapore timezone (UTC+8)
     const getSingaporeDate = (offsetDays = 0) => {
@@ -20,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     oneYearFromTomorrow.setFullYear(tomorrow.getFullYear() + 1);
 
     // Set min and max dates
-    const dateInput = document.getElementById('date1');
+    const dateInput = document.getElementById('date');
     if (dateInput) {
         dateInput.min = formatDate(tomorrow);
         dateInput.max = formatDate(oneYearFromTomorrow);

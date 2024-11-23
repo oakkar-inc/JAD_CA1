@@ -26,14 +26,12 @@
         <div class="booking-card">
             <h2 class="h2">Booking Details</h2>
             <form action="" method="POST">
+                <input type="hidden" name="action" value="bookNow">
 
                 <div class="form-container">
                     <div id="left">
                         <label for="name" class="h3">Name</label>
                         <input type="text" id="name" name="name" class="text-input text-body" value="<%=user.getName()%>" required>
-
-                        <label for="email" class="h3">Email</label>
-                        <input type="email" id="email" name="email" class="text-input text-body" value="<%=user.getEmail()%>" required>
 
                         <label for="phone" class="h3">Phone</label>
                         <input type="tel" id="phone" name="phone" class="text-input text-body" value="<%=user.getMobile()%>" required>
@@ -42,8 +40,8 @@
                         <input type="text" id="category" name="ser-select" class="text-input text-body" value="<%=category.getName()%>" readonly>
                         <input type="text" id="service" name="ser-select" class="text-input text-body" value="<%=service.getName()%>" readonly>
 
-                        <label class="date-label h3" for="date1">Select Date</label>
-                        <input type="date" id="date1" class="date-input text-body" required>
+                        <label class="date-label h3" for="date">Select Date</label>
+                        <input type="date" id="date" name="date" class="date-input text-body" required>                        
                     </div>
 
                     <div id="right">
@@ -72,12 +70,18 @@
                 
                 
                 <div class="action-btns">
-                    <button type="reset" class="secondary-bg text-cta btn-danger">Cancel</button>
-                    <button type="submit" class="primary-bg text-cta btn-primary">Book Now</button>
+                    <div class="action-btns">
+                        <div class="action-btns">
+                            <button type="button" onclick="window.location.href='home.jsp'" class="secondary-bg text-cta btn-danger">Cancel</button>
+                            <button type="submit" class="primary-bg text-cta btn-primary">Book Now</button>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
             </form>
         </div>
     </main>
-    <script src="scripts/datePicker.js"></script>
+    <script src="script/datePicker.js"></script>
 </body>
 </html>

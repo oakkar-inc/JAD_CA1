@@ -39,7 +39,7 @@
                     <li><a href="/JAD_CA1/view/register.jsp">Sign Up</a></li>
                 <% } else { %>
                     <% if (roleId == 1 || roleId == 2) { %>
-                        <li><a href="/view/profile.jsp">Profile</a></li>
+                        <li><a href="/JAD_CA1/view/profile.jsp">Profile</a></li>
                     <% } %>
                 <% } %>
             </ul>
