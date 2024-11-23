@@ -64,7 +64,7 @@
 							</a>
 						</div>
 						<input class="form-input" type="text" id="name" name="name"
-							value=<%=user.getName()%> readonly> <label for="mobile">Mobile<br></label>
+							value="<%=user.getName()%>" readonly> <label for="mobile">Mobile<br></label>
 						<input class="form-input" type="text" id="mobile" name="mobile"
 							value=<%=user.getMobile()%> readonly> <label for="email">Email<br></label>
 						<input class="form-input" type="email" id="email" name="email"

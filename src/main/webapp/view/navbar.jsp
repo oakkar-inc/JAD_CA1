@@ -7,8 +7,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Nav-Bar</title>
-	<link rel="stylesheet" href="style/navbar.css">
-	<link rel="stylesheet" href="style/global.css">
+	<link rel="stylesheet" href="/JAD_CA1/view/style/navbar.css">
+	<link rel="stylesheet" href="/JAD_CA1/view/style/global.css">
 </head>
 <body>
     <%
@@ -21,25 +21,25 @@
     %>
 
     <nav class="primary-bg nav-bar">
-        <a href="home.jsp">
-    		<img src="assets/logo.png" alt="logo">
+        <a href="/JAD_CA1/view/home.jsp">
+    		<img src="/JAD_CA1/view/assets/logo.png" alt="logo">
 		</a>
         <div class="tab-list">
             <ul id="gp-1" class="nav-tab">
-                <li><a href="category">Services</a></li>
+                <li><a href="/JAD_CA1/view/category">Services</a></li>
                 <% if (user != null && roleId != null) { %>
                     <% if (roleId == 1) { %>
-                        <li><a href="manageUser">Dashboard</a></li>
+                        <li><a href="/JAD_CA1/view/manageUser">Dashboard</a></li>
                     <% } %>
                 <% } %>
             </ul>
             <ul id="gp-2" class="nav-tab">
                 <% if (user == null) { %>
-                    <li><a href="login.jsp">Login</a></li>
-                    <li><a href="register.jsp">Sign Up</a></li>
+                    <li><a href="/JAD_CA1/view/login.jsp">Login</a></li>
+                    <li><a href="/JAD_CA1/view/register.jsp">Sign Up</a></li>
                 <% } else { %>
                     <% if (roleId == 1 || roleId == 2) { %>
-                        <li><a href="profile.jsp">Profile</a></li>
+                        <li><a href="/view/profile.jsp">Profile</a></li>
                     <% } %>
                 <% } %>
             </ul>

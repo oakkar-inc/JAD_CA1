@@ -5,10 +5,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import model.Category;
 import model.CategoryDAO;
@@ -16,7 +21,7 @@ import model.CategoryDAO;
 /**
  * Servlet implementation class CAtegoryServlet
  */
-@WebServlet("/view/category")
+@WebServlet("/view/category/*")
 public class CategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     CategoryDAO categoryDAO;
@@ -51,8 +56,73 @@ public class CategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String name = request.getParameter("name");
+		String description = request.getParameter("description");
+		String image_url = request.getParameter("image_url");
+		
+		try {
+			categoryDAO.insertCategory(name, description, image_url);
+			response.sendRedirect("/JAD_CA1/view/manageCategory");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return;
+		}
 	}
+	
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String pathInfo = request.getPathInfo();
+    	
+    	if(pathInfo == null) {
+    		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Service ID is required.");
+                return;
+    	}
+    	
+    	int categoryId = Integer.parseInt(pathInfo.substring(1));
+    	
+    	// Read the JSON body from the request
+        StringBuilder jsonBuilder = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+        }
+
+        // Parse the JSON string
+        String jsonString = jsonBuilder.toString();
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+
+        // Access JSON properties
+        String name = jsonObject.get("name").getAsString();
+        String description = jsonObject.get("description").getAsString();
+		String imageUrl = jsonObject.get("imgUrl").getAsString();
+		
+		try {
+			categoryDAO.updateCategory(name, description, imageUrl, categoryId);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+            return;
+		}
+    }
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String pathInfo = request.getPathInfo();
+    	
+    	if(pathInfo == null) {
+    		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Service ID is required.");
+                return;
+    	}
+    	
+    	int categoryId = Integer.parseInt(pathInfo.substring(1));
+    	
+    	try {
+    		categoryDAO.deleteCategory(categoryId);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+            return;
+		}
+    	
+    }
 
 }

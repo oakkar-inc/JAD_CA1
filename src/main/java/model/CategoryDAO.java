@@ -88,10 +88,9 @@ public class CategoryDAO {
      * @return
      * @throws SQLException
      */
-    public int updateCategory(String name, String description, String image_url) throws SQLException {
-    	int categoryId = -1;
+    public int updateCategory(String name, String description, String image_url, int categoryId) throws SQLException {
     	
-    	String query = "UPDATE cs_category (name, description, image_url) VALUES (?,?,?) where category_id = ?";
+    	String query = "UPDATE cs_category SET name = ?, description = ?, image_url = ? WHERE category_id = ?";
     	
     	try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -125,7 +124,7 @@ public class CategoryDAO {
             pstmt.setInt(1, categoryId);
             return pstmt.executeUpdate();
         }
-    }                            
+    }
     @Override
     public String toString() {
         return "CategoryDAO []";
