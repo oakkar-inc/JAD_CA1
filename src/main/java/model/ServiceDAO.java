@@ -62,6 +62,37 @@ public class ServiceDAO {
     }
 
     /**
+     * Fetch a service by service ID
+     * @param serviceId the ID of the service to fetch
+     * @return Service object or null if not found
+     * @throws SQLException
+     */
+    public Service getServiceByServiceId(int serviceId) throws SQLException {
+        String query = "SELECT * FROM cs_service WHERE service_id = ?";
+        Service service = null;
+
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, serviceId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    service = new Service(
+                        rs.getInt("service_id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("details"),
+                        rs.getString("image_url"),
+                        rs.getInt("category_id")
+                    );
+                }
+            }
+        }
+        return service;
+    }
+
+
+    /**
      * Insert a new service
      * @param name
      * @param price

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 bookNowButton.href = `login.jsp`;
                 return;
             } else {
-                bookNowButton.href = `booking?catId=${categoryId}&serId=${serviceId}`;
+                bookNowButton.href = `appointment?catId=${categoryId}&serId=${serviceId}`;
             }
         });
     });
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault(); // Prevent navigation
             if (errorMessage) {
                 errorMessage.style.display = 'block';
-                errorMessage.scrollIntoView({ behavior: 'smooth' }); // Optional: scroll to error message
+                errorMessage.scrollIntoView({ behavior: 'smooth' }); 
             }
         }
     });

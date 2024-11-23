@@ -139,6 +139,22 @@ body {
     cursor: pointer;
 }
 
+.btn-danger {
+    background-color: white;
+    color: #EF1919;
+    padding : 15px 30px 15px 30px;
+    border-radius: 50px;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-danger:hover {
+    color: white;
+    background-color: #e25f5f;
+    cursor: pointer;
+}
+
+
 .text-blue {
     color: var(--primary-color);
 }

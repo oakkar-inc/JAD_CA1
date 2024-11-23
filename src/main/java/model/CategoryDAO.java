@@ -35,7 +35,7 @@ public class CategoryDAO {
      */
     public Category getCategoryById(int categoryId) throws SQLException {
         Category category = null;
-        String query = "SELECT * FROM cs_category WHERE category_id = ?";  // SQL query to fetch category by category id
+        String query = "SELECT * FROM cs_category WHERE category_id = ?"; 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, categoryId);

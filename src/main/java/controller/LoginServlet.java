@@ -55,8 +55,8 @@ public class LoginServlet extends HttpServlet {
 				List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
 				user.setAddresses(addressList);
 				HttpSession session = request.getSession();
-	            session.setAttribute("user", user);
-				response.sendRedirect("/JAD_CA1/view/home.jsp");
+	            session.setAttribute("user", user);				
+	            response.sendRedirect("/JAD_CA1/view/home.jsp");
 			} else {
 				response.sendRedirect("/JAD_CA1/view/login.jsp?errMsg=" + "wrongpassword");
                 return;
