@@ -82,3 +82,24 @@
     width: 100%;
     border-radius: 23px;
 }
+
+.cards::before,
+.cards::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.cards::before {
+    top: 3%;
+    right: 1%;
+}
+
+.cards::after {
+    bottom: 20%;
+    right: 60%;
+}

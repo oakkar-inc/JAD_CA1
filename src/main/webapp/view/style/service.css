@@ -4,14 +4,12 @@
 
 main {
     margin: 0 2rem;
-    max-height: 93vh;
+    max-height: 93%;
 }
 
 .container {
     display: grid;
     grid-template-columns: 3fr 2fr;
-    /* align-items: center;
-    justify-content: center; */
 }
 
 .category {
@@ -36,11 +34,11 @@ main {
 }
 
 .img-div img {
-    aspect-ratio: 2 / 3;
-    width: 25vw;
-    height: auto;
-    object-fit: cover;
-    border-radius: 16px;
+    aspect-ratio: 2 / 3; 
+    width: 25vw; 
+    height: auto; 
+    object-fit: cover; 
+    border-radius: 16px; 
     margin: 0;
     padding: 0;
 }
@@ -62,12 +60,17 @@ main {
     padding: 1rem;
     margin: 1rem;
     position: relative;
-    justify-content: space-between; /* Ensures content is spaced with price at the bottom */
+    cursor: pointer;
+}
+
+.card.selected {
+    outline: 10px solid var(--secondary-color); 
+    transition: all 0.3s ease;
 }
 
 .card-img {
-    width: 100%;
-    border-radius: 23px;
+    width: 100%;  
+    border-radius: 23px; 
     margin: 0;
     display: flex;
     justify-content: center;
@@ -75,12 +78,12 @@ main {
 }
 
 .card-img img {
-    aspect-ratio: 1 / 1;
-    width: 90%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 16px;
-    margin: 0;
+    aspect-ratio: 1 / 1; 
+    width: 90%; 
+    height: auto; 
+    object-fit: cover; 
+    border-radius: 16px; 
+    margin:0;
 }
 
 .card-text {
@@ -93,27 +96,45 @@ main {
 
 .card-text p,
 .card-text h3 {
-    margin: 1rem 0 0 0;
+    margin-top: 1rem;
 }
 
 .card-text p {
     margin-bottom: 1rem;
 }
 
-.card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-}
-
-.card-footer .price {
-    color: white;
-    font-weight: bold;
-    margin-left: 0.5rem;
-    margin-top: 2rem;
-}
-
 .btn {
-    margin: 2rem 1rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+}
+
+.cards::before,
+.cards::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.cards::before {
+    top: 60%;
+    right: 27%;
+}
+
+.cards::after {
+    bottom: 67%;
+    right: 2%;
+}
+
+.price {
+	color: white;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    display: none; /* Hidden by default */
 }

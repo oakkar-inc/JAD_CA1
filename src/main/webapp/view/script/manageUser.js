@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			delUserBtns[i].addEventListener("click", function() {
 				
 				const userId = this.getAttribute("data-user-id");
-				console.log("delete uesr: " + userId);
+				console.log("delete user: " + userId);
 				fetch(`/JAD_CA1/api/user/${userId}`, {
 					method: "DELETE"
 				}).then(() => location.href = "manageUser")
