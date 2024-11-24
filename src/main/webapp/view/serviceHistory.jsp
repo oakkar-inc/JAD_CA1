@@ -73,13 +73,13 @@
                         <td><%= history.getServiceName() %></td>
                         <td><%= "$" + history.getPrice() %></td>
                         <td><%= history.getAddress() %></td>
-                        <td><%= history.getNote() %></td>
+                        <td class="note-column"><%= history.getNote() %></td>
                         <td>
                             <button class="status-<%= history.getStatus().split(" ")[0].toLowerCase() %>">
                                 <%= history.getStatus() %>
                             </button>                            
                         </td>
-                        <td>
+                        <td class="feedback-column">
                             <%
                                 if (history.getFeedback() != null && !history.getFeedback().isEmpty()) {
                             %>
@@ -90,6 +90,7 @@
                             %>
                                 <form method="post" action="serviceHistory" class="feedback-form">
                                     <input type="hidden" name="appointmentId" value="<%= history.getAppointmentId() %>">
+                                    <input type="hidden" name="action" value="feedback">
                                     <textarea name="feedback" placeholder="Add Feedback"></textarea>
                                     <button type="submit" class="feedback-submit">Submit</button>
                                 </form>

@@ -103,6 +103,15 @@ button:hover {
     background-color: #45a049;
 }
 
+.note-column,
+.feedback-column {
+    max-width: 250px;  
+    overflow: hidden;  
+    word-wrap: break-word;  
+    word-break: break-word; 
+}
+
+
 .feedback-form {
     display:flex;
     flex-direction: column;

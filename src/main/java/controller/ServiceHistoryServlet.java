@@ -60,33 +60,41 @@ public class ServiceHistoryServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String appointmentIdStr = request.getParameter("appointmentId");
-        String action = request.getParameter("action"); // "cancel" or "payment"
-
+        String action = request.getParameter("action"); // "cancel", "payment", or "feedback"
+    
         if (appointmentIdStr == null || appointmentIdStr.trim().isEmpty()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Appointment ID is required.");
             return;
         }
-
+    
         try {
             int appointmentId = Integer.parseInt(appointmentIdStr);
-
+    
             if ("cancel".equals(action)) {
-                // Update the status to 4 (canceled)
                 serviceHistoryDAO.updateAppointmentStatus(appointmentId, 4);
-                // Redirect back to the service history page
                 response.sendRedirect(request.getContextPath() + "/view/serviceHistory");
-            } else if ("payment".equals(action)) {
-                // Redirect to payment page
+    
+            } else if ("feedback".equals(action)) { 
+                String feedback = request.getParameter("feedback");
+                if (feedback == null || feedback.trim().isEmpty()) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Feedback cannot be empty.");
+                    return;
+                }
+                serviceHistoryDAO.addFeedbackByAppointmentId(appointmentId, feedback);
+                response.sendRedirect(request.getContextPath() + "/view/serviceHistory");
+    
+            } else if ("payment".equals(action)) { 
                 response.sendRedirect(request.getContextPath() + "/view/payment.jsp?appointmentId=" + appointmentId);
+    
             } else {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action.");
             }
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid appointment ID.");
         } catch (SQLException e) {
-            // Log the error (you can implement a logging mechanism here)
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to process the action.");
         }
     }
+    
 }
