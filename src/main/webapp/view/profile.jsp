@@ -16,8 +16,6 @@
 
 <body>
 
-
-
 	<%@ include file="navbar.jsp"%>
 	<%
 	if (user == null) {
@@ -35,7 +33,7 @@
 							<img src="./assets/user-square.png">
 							<p>Account Details</p>
 						</div>
-					</a> <a href="history.jsp">
+					</a> <a href="serviceHistory.jsp">
 						<div class="sidebar-navitem">
 							<img src="./assets/refresh-left-square.png">
 							<p>Service History</p>

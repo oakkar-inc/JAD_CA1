@@ -89,11 +89,9 @@ public class AppointmentServlet extends HttpServlet {
         }
     }
 
-    // Handle POST request to save the appointment and redirect accordingly
+    // Handle POST request for appointment submission
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        String action = request.getParameter("action");
-
         // Get form data
         User user = (User) request.getSession().getAttribute("user");
         String name = request.getParameter("name");
@@ -102,19 +100,17 @@ public class AppointmentServlet extends HttpServlet {
         String specialRequest = request.getParameter("special-request");
         String dateStr = request.getParameter("date");
 
-        Date appointmentDate = null;
+        Date bookDate = null;
 
         if (dateStr != null && !dateStr.isEmpty()) {
-            appointmentDate = Date.valueOf(dateStr);  
+            bookDate = Date.valueOf(dateStr);
         }
 
-        int statusId = 1;  
-        Double rating = request.getParameter("rating") != null ? Double.parseDouble(request.getParameter("rating")) : null;
+        int statusId = 1; // Default status ID for a new appointment
+
         String feedback = request.getParameter("feedback");
 
-
-        int serviceId = Integer.parseInt(request.getParameter("serId"));
-        int categoryId = Integer.parseInt(request.getParameter("catId"));
+        int serviceId = Integer.parseInt(request.getParameter("serId")); // Service ID from the form
 
         try {
             Appointment appointment = new Appointment();
@@ -124,11 +120,9 @@ public class AppointmentServlet extends HttpServlet {
             appointment.setBookingPhone(phone);
             appointment.setAddressId(addressId);
             appointment.setSpecialRequest(specialRequest);
-            appointment.setAppointmentDate(appointmentDate);
-            appointment.setRating(rating);
+            appointment.setBookDate(bookDate);
             appointment.setFeedback(feedback);
-            appointment.setServiceId(serviceId);  
-            appointment.setCategoryId(categoryId);  
+            appointment.setServiceId(serviceId);
 
             // Insert appointment into the database
             int appointmentId = appointmentDAO.insertAppointment(
@@ -137,16 +131,14 @@ public class AppointmentServlet extends HttpServlet {
                     appointment.getBookingName(),
                     appointment.getBookingPhone(),
                     appointment.getAddressId(),
-                    appointment.getAppointmentDate(),
+                    appointment.getBookDate(),
                     appointment.getSpecialRequest(),
-                    appointment.getRating(),
                     appointment.getFeedback(),
-                    appointment.getServiceId(),
-                    appointment.getCategoryId()
+                    appointment.getServiceId()
             );
 
             // Redirect to service history page after successful booking
-            response.sendRedirect(request.getContextPath() + "/view/serviceHistory");  
+            response.sendRedirect(request.getContextPath() + "/view/serviceHistory");
 
         } catch (SQLException e) {
             e.printStackTrace();

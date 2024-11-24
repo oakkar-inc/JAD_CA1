@@ -21,16 +21,15 @@ public class AppointmentDAO {
                 Appointment appointment = new Appointment(
                         rs.getInt("appointment_id"),
                         rs.getInt("user_id"),
-                        rs.getInt("service_id"),  // Added service_id
-                        rs.getInt("category_id"), // Added category_id
+                        rs.getInt("service_id"),
                         rs.getString("booking_name"),
                         rs.getInt("status_id"),
                         rs.getString("booking_phone"),
                         rs.getInt("address_id"),
                         rs.getString("special_request"),
-                        rs.getDate("date"),
-                        rs.getDouble("rating"),
-                        rs.getString("feedback")
+                        rs.getDate("book_date"),  // Updated field name
+                        rs.getString("feedback"),
+                        rs.getTimestamp("created_at")
                 );
                 appointmentList.add(appointment);
             }
@@ -55,21 +54,54 @@ public class AppointmentDAO {
                     appointment = new Appointment(
                             rs.getInt("appointment_id"),
                             rs.getInt("user_id"),
-                            rs.getInt("service_id"),  // Added service_id
-                            rs.getInt("category_id"), // Added category_id
+                            rs.getInt("service_id"),
                             rs.getString("booking_name"),
                             rs.getInt("status_id"),
                             rs.getString("booking_phone"),
                             rs.getInt("address_id"),
                             rs.getString("special_request"),
-                            rs.getDate("date"),
-                            rs.getDouble("rating"),
-                            rs.getString("feedback")
+                            rs.getDate("book_date"),  // Updated field name
+                            rs.getString("feedback"),
+                            rs.getTimestamp("created_at")
                     );
                 }
             }
         }
         return appointment;
+    }
+
+    /**
+     * Fetch all appointments for a specific user by user ID
+     * @param userId
+     * @return List<Appointment>
+     * @throws SQLException
+     */
+    public List<Appointment> getAppointmentsByUserId(int userId) throws SQLException {
+        List<Appointment> appointmentList = new ArrayList<>();
+        String query = "SELECT * FROM cs_appointment WHERE user_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Appointment appointment = new Appointment(
+                            rs.getInt("appointment_id"),
+                            rs.getInt("user_id"),
+                            rs.getInt("service_id"),
+                            rs.getString("booking_name"),
+                            rs.getInt("status_id"),
+                            rs.getString("booking_phone"),
+                            rs.getInt("address_id"),
+                            rs.getString("special_request"),
+                            rs.getDate("book_date"),  // Updated field name
+                            rs.getString("feedback"),
+                            rs.getTimestamp("created_at")
+                    );
+                    appointmentList.add(appointment);
+                }
+            }
+        }
+        return appointmentList;
     }
 
     /**
@@ -79,23 +111,19 @@ public class AppointmentDAO {
      * @param bookingName
      * @param bookingPhone
      * @param addressId
-     * @param appointmentDate
+     * @param bookDate
      * @param specialRequest
-     * @param rating
      * @param feedback
      * @param serviceId
-     * @param categoryId
      * @return appointmentId
      * @throws SQLException
      */
     public int insertAppointment(int userId, int statusId, String bookingName, String bookingPhone, int addressId,
-                             Date appointmentDate, String specialRequest, Double rating, String feedback, 
-                             int serviceId, int categoryId) throws SQLException {
+                                  Date bookDate, String specialRequest, String feedback, int serviceId) throws SQLException {
         int appointmentId = -1;
-        String query = "INSERT INTO cs_appointment (user_id, status_id, booking_name, booking_phone, address_id, date, " +
-                       "special_request, rating, feedback, service_id, category_id) " +
-                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
+        String query = "INSERT INTO cs_appointment (user_id, status_id, booking_name, booking_phone, address_id, book_date, " +  // Updated field name
+                       "special_request, feedback, service_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -104,23 +132,16 @@ public class AppointmentDAO {
             pstmt.setString(3, bookingName);
             pstmt.setString(4, bookingPhone);
             pstmt.setInt(5, addressId);
-            pstmt.setDate(6, appointmentDate);
+            pstmt.setDate(6, bookDate);  // Updated field name
             pstmt.setString(7, specialRequest);
 
-            if (rating == null) {
-                pstmt.setNull(8, Types.DOUBLE); 
-            } else {
-                pstmt.setDouble(8, rating); 
-            }
-
             if (feedback == null) {
-                pstmt.setNull(9, Types.VARCHAR); 
+                pstmt.setNull(8, Types.VARCHAR);
             } else {
-                pstmt.setString(9, feedback);  
+                pstmt.setString(8, feedback);
             }
 
-            pstmt.setInt(10, serviceId);  // Set service_id
-            pstmt.setInt(11, categoryId); // Set category_id
+            pstmt.setInt(9, serviceId); // Set service_id
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -141,36 +162,30 @@ public class AppointmentDAO {
      * @param bookingName
      * @param bookingPhone
      * @param addressId
-     * @param appointmentDate
+     * @param bookDate
      * @param specialRequest
-     * @param rating
      * @param feedback
      * @param serviceId
-     * @param categoryId
      * @param appointmentId
      * @return number of affected rows
      * @throws SQLException
      */
     public int updateAppointment(int userId, int statusId, String bookingName, String bookingPhone, int addressId,
-                                 Date appointmentDate, String specialRequest, Double rating, String feedback, 
-                                 int serviceId, int categoryId, int appointmentId) throws SQLException {
+                                  Date bookDate, String specialRequest, String feedback, int serviceId, int appointmentId) throws SQLException {
         String query = "UPDATE cs_appointment SET user_id = ?, status_id = ?, booking_name = ?, booking_phone = ?, address_id = ?, " +
-                       "date = ?, special_request = ?, rating = ?, feedback = ?, service_id = ?, category_id = ? " +
-                       "WHERE appointment_id = ?";
+                       "book_date = ?, special_request = ?, feedback = ?, service_id = ? WHERE appointment_id = ?";  // Updated field name
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, userId);
-            pstmt.setInt(2, statusId);  // Added status_id
+            pstmt.setInt(2, statusId);
             pstmt.setString(3, bookingName);
             pstmt.setString(4, bookingPhone);
             pstmt.setInt(5, addressId);
-            pstmt.setDate(6, appointmentDate);
+            pstmt.setDate(6, bookDate);  // Updated field name
             pstmt.setString(7, specialRequest);
-            pstmt.setDouble(8, rating);
-            pstmt.setString(9, feedback);
-            pstmt.setInt(10, serviceId); // Set service_id
-            pstmt.setInt(11, categoryId); // Set category_id
-            pstmt.setInt(12, appointmentId);
+            pstmt.setString(8, feedback);
+            pstmt.setInt(9, serviceId);
+            pstmt.setInt(10, appointmentId);
 
             return pstmt.executeUpdate();
         }

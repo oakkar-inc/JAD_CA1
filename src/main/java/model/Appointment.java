@@ -1,41 +1,41 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Appointment {
 
     private int appointmentId;
     private int userId;
-    private int serviceId;  // New field for serviceId
-    private int categoryId; // New field for categoryId
+    private int serviceId;
     private String bookingName;
-    private int statusId;  
+    private int statusId;
     private String bookingPhone;
     private int addressId;
     private String specialRequest;
-    private Date appointmentDate;
-    private Double rating;  // Rating can be nullable, so it remains a Double
-    private String feedback; // Feedback can be nullable, so it's a String
+    private Date bookDate; 
+    private String feedback;
+    private Timestamp createdAt;
 
     // Default constructor
     public Appointment() {
     }
 
     // Constructor to initialize all fields
-    public Appointment(int appointmentId, int userId, int serviceId, int categoryId, String bookingName, int statusId,
-                       String bookingPhone, int addressId, String specialRequest, Date appointmentDate, Double rating, String feedback) {
+    public Appointment(int appointmentId, int userId, int serviceId, String bookingName, int statusId,
+                       String bookingPhone, int addressId, String specialRequest, Date bookDate,
+                       String feedback, Timestamp createdAt) {
         this.appointmentId = appointmentId;
         this.userId = userId;
-        this.serviceId = serviceId; 
-        this.categoryId = categoryId;
+        this.serviceId = serviceId;
         this.bookingName = bookingName;
         this.statusId = statusId;
         this.bookingPhone = bookingPhone;
         this.addressId = addressId;
         this.specialRequest = specialRequest;
-        this.appointmentDate = appointmentDate;
-        this.rating = rating;
+        this.bookDate = bookDate;  
         this.feedback = feedback;
+        this.createdAt = createdAt;
     }
 
     // Getter and Setter methods
@@ -61,14 +61,6 @@ public class Appointment {
 
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getBookingName() {
@@ -111,20 +103,12 @@ public class Appointment {
         this.specialRequest = specialRequest;
     }
 
-    public Date getAppointmentDate() {
-        return appointmentDate;
+    public Date getBookDate() {  
+        return bookDate;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setBookDate(Date bookDate) {  
+        this.bookDate = bookDate;
     }
 
     public String getFeedback() {
@@ -135,11 +119,20 @@ public class Appointment {
         this.feedback = feedback;
     }
 
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "Appointment [appointmentId=" + appointmentId + ", userId=" + userId + ", serviceId=" + serviceId +
-                ", categoryId=" + categoryId + ", bookingName=" + bookingName + ", statusId=" + statusId +
-                ", bookingPhone=" + bookingPhone + ", addressId=" + addressId + ", specialRequest=" + specialRequest +
-                ", appointmentDate=" + appointmentDate + ", rating=" + rating + ", feedback=" + feedback + "]";
+                ", bookingName=" + bookingName + ", statusId=" + statusId + ", bookingPhone=" + bookingPhone +
+                ", addressId=" + addressId + ", specialRequest=" + specialRequest +
+                ", bookDate=" + bookDate + ", feedback=" + feedback +  // Updated here
+                ", createdAt=" + createdAt + "]";
     }
 }
