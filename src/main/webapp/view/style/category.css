@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+@import url('variables.css');
+
+.h1 {
+    margin: 2rem 0 0 2rem;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center; 
+}
+
+.card {
+    background-color: var(--primary-color);
+    width: 23vw;
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 23px;
+    padding: 1rem;
+    margin: 2rem;
+    position: relative;
+}
+
+.card-top {
+    display: flex;
+    width: 100%;
+}
+
+.card-text {
+    color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.card-text h2 {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 18vw;
+}
+
+.card-text p {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    max-width: 18vw;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-button {
+    background-color: var(--secondary-color);
+    padding: 6px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 2rem;
+    height: fit-content;
+}
+
+.card-img {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22vw;
+}
+
+.card-img img {
+    width: 100%;
+    border-radius: 23px;
+}
+
+.cards::before,
+.cards::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.cards::before {
+    top: 3%;
+    right: 1%;
+}
+
+.cards::after {
+    bottom: 20%;
+    right: 60%;
+}

@@ -1,0 +1,215 @@
+.history-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5vh;
+}
+
+.sidebar-container {
+    position: relative;
+    width: 20%;
+    height: 80vh;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidebar {
+    width: 80%;
+    height: 100%;
+    left: 10%;
+    background-color: var(--primary-color);
+    position: absolute;
+    color: white;
+    border-radius: 1.5rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin: 2rem 1rem;
+}
+
+.sidebar-navitem {
+    display: flex;
+}
+
+.sidebar-navitem img{
+    width: 24px;
+    height: 24px;
+}
+
+.sidebar-navitem p{
+    margin: 0;
+    padding: 0 0 0 6px;
+}
+
+.sidebar-nav a{
+    text-decoration: none;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+}
+
+.main-content {
+    margin: 0 auto;
+    width: calc(80% - 4rem);
+    border-radius: 1.5rem;
+    min-height: 70vh;
+    padding: 0 2rem;
+    
+}
+
+/* table ================== */
+table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0; 
+    border: 2px solid var(--primary-color); 
+    border-radius: 10px; 
+    overflow: hidden; 
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--primary-color); 
+}
+
+th {
+    background-color: var(--primary-color); 
+    color: white; 
+}
+
+td {
+    border-left: none;
+    border-right: none;
+}
+
+/* Optional: style the footer row or buttons */
+button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.note-column,
+.feedback-column {
+    max-width: 250px;  
+    overflow: hidden;  
+    word-wrap: break-word;  
+    word-break: break-word; 
+}
+
+
+.feedback-form {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+}
+
+.feedback-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    resize: none;
+    margin-bottom: 5px;
+}
+
+.status-payment {
+    background-color: rgb(255, 237, 202);
+    color: rgb(237, 154, 0);
+    text-align: center;
+    border-radius: 30px;
+    cursor: default;
+}
+
+.status-payment:hover {
+    background-color: rgb(255, 237, 202);
+    cursor: default;
+}
+
+.status-completed {
+    background-color: rgb(220, 255, 220);
+    color: green;
+    text-align: center;
+    border-radius: 30px;
+    cursor: default;
+}
+
+.status-completed:hover {
+    background-color: rgb(220, 255, 220);
+    cursor: default;
+}
+
+.status-canceled {
+    background-color: rgb(252, 210, 210);
+    color: red;
+    text-align: center;
+    border-radius: 30px;
+    cursor: default;
+}
+
+.status-canceled:hover {
+    background-color: rgb(252, 210, 210);
+    cursor: default;
+}
+
+.status-confirmed {
+    background-color: rgb(209, 209, 255);
+    color: blue;
+    text-align: center;
+    border-radius: 30px;
+    cursor: default;
+}
+
+.status-confirmed:hover{
+    background-color: rgb(209, 209, 255);
+    cursor: default;
+}
+
+.pay-btn,
+.feedback-submit {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: white;
+    outline: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+}
+
+.pay-btn:hover,
+.feedback-submit:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.cancel-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: white;
+    outline: 1px solid red;
+    color: red;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: red;
+    color: white;
+}

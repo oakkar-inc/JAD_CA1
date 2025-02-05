@@ -1,0 +1,106 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5vh;
+}
+
+.sidebar-container {
+    position: relative;
+    width: 20%;
+    height: 80vh;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidebar {
+    width: 80%;
+    height: 100%;
+    left: 10%;
+    background-color: var(--primary-color);
+    position: absolute;
+    color: white;
+    border-radius: 1.5rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin: 2rem 1rem;
+}
+
+.sidebar-navitem {
+    display: flex;
+}
+
+.sidebar-navitem img{
+    width: 24px;
+    height: 24px;
+}
+
+.sidebar-navitem p{
+    margin: 0;
+    padding: 0 0 0 6px;
+}
+
+.sidebar-nav a{
+    text-decoration: none;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+}
+
+.main-content {
+    margin: 0 auto;
+    width: calc(80% - 4rem);
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 1.5rem;
+    min-height: 70vh;
+    padding: 2rem;
+}
+
+.details-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit-btn-container {
+    display: flex;
+    align-items: end;
+}
+
+.edit-button {
+    background-color: var(--secondary-color);
+    color: black;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: #EF1919;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+}
+
+hr {
+	margin: 2rem 0;
+}
