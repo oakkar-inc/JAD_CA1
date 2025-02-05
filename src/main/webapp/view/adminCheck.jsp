@@ -11,6 +11,6 @@ if (user != null) {
 }
 
 if(user == null || user.getRoleId() != 1) {
-	response.sendRedirect("logout.jsp");
+	response.sendRedirect(request.getContextPath() + "/view/logout.jsp");
 }
 %>

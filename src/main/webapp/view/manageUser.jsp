@@ -17,7 +17,7 @@
 	<%@ include file="/view/navbar.jsp"%>
 	<%
 	if(user == null || user.getRoleId() != 1) {
-		response.sendRedirect("logout.jsp");
+		response.sendRedirect(request.getContextPath() + "/view/logout.jsp");
 	}
 	%>
 		
@@ -38,13 +38,25 @@
 				<div>
 					<form action="<%=request.getContextPath()%>/UserInfo" method="post">
 						<input hidden name="userId" value=<%=curUser.getId()%>>
-						<input hidden name="roleId" value=<%=curUser.getRoleId()%>>
 						<input hidden name="byAdmin" value="true">
 						<div class="edit-btn-container">
 							<label for="name">Name<br></label>
 							<button class="delete-button-user delete-button" data-user-id=<%=curUser.getId() %> type="button">Delete</button>
 						</div>
-						<input class="form-input" type="text" id="name" name="name" value="<%=curUser.getName()%>" > 
+						<input class="form-input" type="text" id="name" name="name" value="<%=curUser.getName()%>" >
+						<label>Role</label><br>
+         				<label>
+    					<input type="radio" name="roleId" value="1" <%= curUser.getRoleId() == 1 ? "checked" : "" %> required>
+   						 Admin
+						</label>
+						<label>
+   					 	<input type="radio" name="roleId" value="2" <%= curUser.getRoleId() == 2 ? "checked" : "" %> required>
+    					Customer
+						</label>
+						<label>
+    					<input type="radio" name="roleId" value="3" <%= curUser.getRoleId() == 3 ? "checked" : "" %> required>
+    					Cleaner
+						</label><br><br>
 						<label for="mobile">Mobile<br></label>
 						<input class="form-input" type="text" id="mobile" name="mobile" value=<%=curUser.getMobile()%> >
 						<label for="email">Email<br></label>

@@ -50,13 +50,15 @@ public class LoginServlet extends HttpServlet {
 		
 		try {
 			User user = userDAO.getUserByEmail(email);
-			if(password.equals(user.getPassword())) {
+			if(password.equals(user.getPassword()) && user.getRoleId() != 3) {
 				
 				List<Address> addressList = addressDAO.getAddressListByUserId(user.getId());
 				user.setAddresses(addressList);
 				HttpSession session = request.getSession();
 	            session.setAttribute("user", user);				
 	            response.sendRedirect("/JAD_CA1/view/home.jsp");
+			} else if (user.getRoleId() == 3) {
+				response.sendRedirect(request.getContextPath() + "/view/login.jsp?errMsg=cleaner");
 			} else {
 				response.sendRedirect("/JAD_CA1/view/login.jsp?errMsg=" + "wrongpassword");
                 return;

@@ -26,6 +26,8 @@
             	if(errMsg != null) {
             		if(errMsg.equals("wrongpassword")) {
             			out.print("<p>Incorrect password</p>");
+            		} else if(errMsg.equals("cleaner")) {
+            			out.print("<p>Please log in using cleaners portal");
             		} else {
             			out.print("<p>There was an error during log in</p>");
             		}

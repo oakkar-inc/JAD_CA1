@@ -57,11 +57,11 @@ public class UserInfoServlet extends HttpServlet {
 			user.setAddresses(addressList);
 			
             if(byAdmin) {
-            	response.sendRedirect("/JAD_CA1/view/manageUser");
+            	response.sendRedirect(request.getContextPath() + "/view/manageUser");
             } else {
             	HttpSession session = request.getSession(false);
                 session.setAttribute("user", user);
-                response.sendRedirect("/JAD_CA1/view/profile.jsp");
+                response.sendRedirect(request.getContextPath() + "/view/profile.jsp");
             }
 			
 		} catch (Exception e) {

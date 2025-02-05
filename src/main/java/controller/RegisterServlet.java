@@ -63,15 +63,19 @@ public class RegisterServlet extends HttpServlet {
                 user.setId(userId);
                 List<Address> addressList = addressDAO.getAddressListByUserId(userId);
                 user.setAddresses(addressList);
-                HttpSession session = request.getSession();
-	            session.setAttribute("user", user);
-				response.sendRedirect("/JAD_CA1/view/home.jsp");
-                return;
+             
+                if (roleId != 3) {
+                	HttpSession session = request.getSession();
+                	session.setAttribute("user", user);                	
+                	response.sendRedirect(request.getContextPath() + "/view/home.jsp");
+                } else {
+                	response.sendRedirect(request.getContextPath() + "/view/register.jsp?successMsg=" + "cleaner");
+                    return;
+                }
 			}
-			response.sendRedirect("/JAD_CA1/view/home.jsp");
 		} catch (Exception e ) {
 			System.out.println(e.getMessage());
-			response.sendRedirect("/JAD_CA1/view/register.jsp?errMsg=" + "error");
+			response.sendRedirect(request.getContextPath() + "/view/register.jsp?errMsg=" + "error");
             return;
 		}
 		

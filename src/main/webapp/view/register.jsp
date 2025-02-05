@@ -46,6 +46,9 @@
             	if(request.getParameter("errMsg") != null) {
             		out.print("<p>There was an error during registration</p>");
             	}
+            	if(request.getParameter("successMsg") != null) {
+            		out.print("<p>You have been successfully registered as a cleaner. Log in to the cleaners portal to start seeing jobs.</p>");
+            	}
             %>
         </div>
     </form>
