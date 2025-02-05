@@ -25,7 +25,7 @@
 	List<User> userList = (List<User>) request.getAttribute("userList");
 	%>
 	<div class="profile-container">
-		<%@ include file="/view/adminSidebar.html" %>
+		<%@ include file="/view/adminSidebar.jsp" %>
 		<div class="main-content">
 		<div>
 			<a href="<%=request.getContextPath()%>/view/addUser.jsp"><button style="margin: 2rem;" class="form-button secondary-bg">Add new user</button></a>

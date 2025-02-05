@@ -14,6 +14,15 @@
     <p class="h1">Register</p>
     <form action="/JAD_CA1/api/register" method="post" class="h3 form-container">
         <div>
+        	<label>Sign Up As</label><br>
+         	<label>
+    		<input type="radio" name="role" value="2" required>
+    		Customer
+  			</label>
+  			<label>
+    		<input type="radio" name="role" value="3" required>
+    		Cleaner
+  			</label><br>
             <label for="name">Name<br></label>
             <input class="form-input" type="text" id="name" name="name" required>
             <label for="email">Email<br></label>

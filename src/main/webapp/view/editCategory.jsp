@@ -29,7 +29,7 @@
 	List<Service> serviceList = (List<Service>) request.getAttribute("serviceList");
 	%>
 	<div class="profile-container">
-		<%@ include file="adminSidebar.html"%>
+		<%@ include file="adminSidebar.jsp"%>
 		<div class="main-content">
 		<a href=<%= "../addService.jsp?cid=" + category.getCategoryId() %>><button style="margin: 2rem;" class="form-button secondary-bg">Add new service</button></a>
 			<form>

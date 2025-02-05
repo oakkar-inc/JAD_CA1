@@ -26,7 +26,7 @@
 	List<Category> categoryList = (List<Category>) request.getAttribute("categoryList");
 	%>
 	<div class="profile-container">
-		<%@ include file="adminSidebar.html"%>
+		<%@ include file="adminSidebar.jsp"%>
 		<div class="main-content">
 		
 			<div class="card-container h2">
