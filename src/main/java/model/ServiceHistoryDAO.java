@@ -16,15 +16,15 @@ public class ServiceHistoryDAO {
     public List<ServiceHistory> getAllAppointmentsByUserId(int userId) throws SQLException {
         List<ServiceHistory> serviceHistoryList = new ArrayList<>();
         String query = """
-            SELECT a.appointment_id, a.book_date, a.booking_name, s.name, s.price, 
+            SELECT a.appointment_id, a.service_date, a.booking_name, a.service_id, s.name, s.price, 
                    ad.floor, ad.unit, ad.postal AS postal, a.special_request AS note, 
-                   st.status_name AS status, a.feedback
+                   st.status_name AS status, a.feedback, a.created_at AS booking_date
             FROM cs_appointment a
             JOIN cs_service s ON a.service_id = s.service_id
             JOIN cs_address ad ON a.address_id = ad.address_id
             JOIN cs_status st ON a.status_id = st.status_id
             WHERE a.user_id = ?
-            ORDER BY a.book_date DESC
+            ORDER BY a.service_date DESC
             """;
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -37,14 +37,16 @@ public class ServiceHistoryDAO {
                     
                     ServiceHistory serviceHistory = new ServiceHistory(
                         rs.getInt("appointment_id"),
-                        rs.getDate("book_date"),
+                        rs.getDate("service_date"),
                         rs.getString("booking_name"),
+                        rs.getInt("service_id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
                         formattedAddress,  // formatted address
                         rs.getString("note"),
                         rs.getString("status"),
-                        rs.getString("feedback")
+                        rs.getString("feedback"),
+                        rs.getDate("booking_date")
                     );
                     serviceHistoryList.add(serviceHistory);
                 }

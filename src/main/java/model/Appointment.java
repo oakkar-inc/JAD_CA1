@@ -13,7 +13,7 @@ public class Appointment {
     private String bookingPhone;
     private int addressId;
     private String specialRequest;
-    private Date bookDate; 
+    private Date serviceDate; 
     private String feedback;
     private Timestamp createdAt;
 
@@ -23,7 +23,7 @@ public class Appointment {
 
     // Constructor to initialize all fields
     public Appointment(int appointmentId, int userId, int serviceId, String bookingName, int statusId,
-                       String bookingPhone, int addressId, String specialRequest, Date bookDate,
+                       String bookingPhone, int addressId, String specialRequest, Date serviceDate,
                        String feedback, Timestamp createdAt) {
         this.appointmentId = appointmentId;
         this.userId = userId;
@@ -33,7 +33,7 @@ public class Appointment {
         this.bookingPhone = bookingPhone;
         this.addressId = addressId;
         this.specialRequest = specialRequest;
-        this.bookDate = bookDate;  
+        this.serviceDate = serviceDate;  
         this.feedback = feedback;
         this.createdAt = createdAt;
     }
@@ -103,12 +103,12 @@ public class Appointment {
         this.specialRequest = specialRequest;
     }
 
-    public Date getBookDate() {  
-        return bookDate;
+    public Date getServiceDate() {  
+        return serviceDate;
     }
 
-    public void setBookDate(Date bookDate) {  
-        this.bookDate = bookDate;
+    public void setServiceDate(Date serviceDate) {  
+        this.serviceDate = serviceDate;
     }
 
     public String getFeedback() {
@@ -132,7 +132,7 @@ public class Appointment {
         return "Appointment [appointmentId=" + appointmentId + ", userId=" + userId + ", serviceId=" + serviceId +
                 ", bookingName=" + bookingName + ", statusId=" + statusId + ", bookingPhone=" + bookingPhone +
                 ", addressId=" + addressId + ", specialRequest=" + specialRequest +
-                ", bookDate=" + bookDate + ", feedback=" + feedback +  // Updated here
+                ", serviceDate=" + serviceDate + ", feedback=" + feedback +  // Updated here
                 ", createdAt=" + createdAt + "]";
     }
 }

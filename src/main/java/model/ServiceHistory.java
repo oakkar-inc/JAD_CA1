@@ -4,27 +4,31 @@ import java.util.Date;
 
 public class ServiceHistory {
     private int appointmentId;
-    private Date bookDate;
+    private Date bookingDate;
     private String bookingName;
+    private int serviceId;
     private String serviceName;
     private double price;
     private String address;
     private String note;
     private String status;
     private String feedback;
+    private Date serviceDate;
 
     // Constructor
-    public ServiceHistory(int appointmentId, Date bookDate, String bookingName, String serviceName, double price,
-                          String address, String note, String status, String feedback) {
+    public ServiceHistory(int appointmentId, Date bookingDate, String bookingName, int serviceId, String serviceName, double price,
+                          String address, String note, String status, String feedback, Date serviceDate) {
         this.appointmentId = appointmentId;
-        this.bookDate = bookDate;
+        this.bookingDate = bookingDate;
         this.bookingName = bookingName;
+        this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.price = price;
         this.address = address;
         this.note = note;
         this.status = status;
         this.feedback = feedback;
+        this.serviceDate = serviceDate;
     }
 
     // Default Constructor
@@ -39,12 +43,12 @@ public class ServiceHistory {
         this.appointmentId = appointmentId;
     }
 
-    public Date getDate() {
-        return bookDate;
+    public Date getBookingDate() {
+        return bookingDate;
     }
 
-    public void setDate(Date bookDate) {
-        this.bookDate = bookDate;
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
     public String getBookingName() {
@@ -53,6 +57,14 @@ public class ServiceHistory {
 
     public void setBookingName(String bookingName) {
         this.bookingName = bookingName;
+    }
+
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getServiceName() {
@@ -101,5 +113,13 @@ public class ServiceHistory {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    public Date getServiceDate() {
+        return serviceDate;
+    }
+
+    public void setServiceDate(Date serviceDate) {
+        this.serviceDate = serviceDate;
     }
 }

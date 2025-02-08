@@ -130,7 +130,33 @@ button:hover {
     margin-bottom: 5px;
 }
 
-.status-payment {
+.status-pending {
+    background-color: rgb(255, 243, 204);
+    color: rgb(196, 140, 0);
+    text-align: center;
+    border-radius: 30px;
+    cursor: default;
+}
+
+.status-pending:hover {
+    background-color: rgb(255, 243, 204);
+    cursor: default;
+}
+
+.status-confirmed {
+    background-color: rgb(209, 209, 255);
+    color: blue;
+    text-align: center;
+    border-radius: 30px;
+    cursor: default;
+}
+
+.status-confirmed:hover {
+    background-color: rgb(209, 209, 255);
+    cursor: default;
+}
+
+.status-paid {
     background-color: rgb(255, 237, 202);
     color: rgb(237, 154, 0);
     text-align: center;
@@ -138,8 +164,21 @@ button:hover {
     cursor: default;
 }
 
-.status-payment:hover {
+.status-paid:hover {
     background-color: rgb(255, 237, 202);
+    cursor: default;
+}
+
+.status-in {
+    background-color: rgb(186, 239, 255);
+    color: rgb(0, 123, 167);
+    text-align: center;
+    border-radius: 30px;
+    cursor: default;
+}
+
+.status-in:hover {
+    background-color: rgb(186, 239, 255);
     cursor: default;
 }
 
@@ -156,7 +195,7 @@ button:hover {
     cursor: default;
 }
 
-.status-canceled {
+.status-cancelled {
     background-color: rgb(252, 210, 210);
     color: red;
     text-align: center;
@@ -164,21 +203,8 @@ button:hover {
     cursor: default;
 }
 
-.status-canceled:hover {
+.status-cancelled:hover {
     background-color: rgb(252, 210, 210);
-    cursor: default;
-}
-
-.status-confirmed {
-    background-color: rgb(209, 209, 255);
-    color: blue;
-    text-align: center;
-    border-radius: 30px;
-    cursor: default;
-}
-
-.status-confirmed:hover{
-    background-color: rgb(209, 209, 255);
     cursor: default;
 }
 

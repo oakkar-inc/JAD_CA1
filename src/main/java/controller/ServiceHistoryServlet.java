@@ -71,7 +71,7 @@ public class ServiceHistoryServlet extends HttpServlet {
             int appointmentId = Integer.parseInt(appointmentIdStr);
     
             if ("cancel".equals(action)) {
-                serviceHistoryDAO.updateAppointmentStatus(appointmentId, 4);
+                serviceHistoryDAO.updateAppointmentStatus(appointmentId, 6);
                 response.sendRedirect(request.getContextPath() + "/view/serviceHistory");
     
             } else if ("feedback".equals(action)) { 

@@ -27,7 +27,7 @@ public class AppointmentDAO {
                         rs.getString("booking_phone"),
                         rs.getInt("address_id"),
                         rs.getString("special_request"),
-                        rs.getDate("book_date"),  // Updated field name
+                        rs.getDate("service_date"),  // Updated field name
                         rs.getString("feedback"),
                         rs.getTimestamp("created_at")
                 );
@@ -60,7 +60,7 @@ public class AppointmentDAO {
                             rs.getString("booking_phone"),
                             rs.getInt("address_id"),
                             rs.getString("special_request"),
-                            rs.getDate("book_date"),  // Updated field name
+                            rs.getDate("service_date"),  // Updated field name
                             rs.getString("feedback"),
                             rs.getTimestamp("created_at")
                     );
@@ -93,7 +93,7 @@ public class AppointmentDAO {
                             rs.getString("booking_phone"),
                             rs.getInt("address_id"),
                             rs.getString("special_request"),
-                            rs.getDate("book_date"),  // Updated field name
+                            rs.getDate("service_date"),  // Updated field name
                             rs.getString("feedback"),
                             rs.getTimestamp("created_at")
                     );
@@ -111,7 +111,7 @@ public class AppointmentDAO {
      * @param bookingName
      * @param bookingPhone
      * @param addressId
-     * @param bookDate
+     * @param serviceDate
      * @param specialRequest
      * @param feedback
      * @param serviceId
@@ -119,9 +119,9 @@ public class AppointmentDAO {
      * @throws SQLException
      */
     public int insertAppointment(int userId, int statusId, String bookingName, String bookingPhone, int addressId,
-                                  Date bookDate, String specialRequest, String feedback, int serviceId) throws SQLException {
+                                  Date serviceDate, String specialRequest, String feedback, int serviceId) throws SQLException {
         int appointmentId = -1;
-        String query = "INSERT INTO cs_appointment (user_id, status_id, booking_name, booking_phone, address_id, book_date, " +  // Updated field name
+        String query = "INSERT INTO cs_appointment (user_id, status_id, booking_name, booking_phone, address_id, service_date, " +  // Updated field name
                        "special_request, feedback, service_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -132,7 +132,7 @@ public class AppointmentDAO {
             pstmt.setString(3, bookingName);
             pstmt.setString(4, bookingPhone);
             pstmt.setInt(5, addressId);
-            pstmt.setDate(6, bookDate);  // Updated field name
+            pstmt.setDate(6, serviceDate); 
             pstmt.setString(7, specialRequest);
 
             if (feedback == null) {
@@ -162,7 +162,7 @@ public class AppointmentDAO {
      * @param bookingName
      * @param bookingPhone
      * @param addressId
-     * @param bookDate
+     * @param serviceDate
      * @param specialRequest
      * @param feedback
      * @param serviceId
@@ -171,9 +171,9 @@ public class AppointmentDAO {
      * @throws SQLException
      */
     public int updateAppointment(int userId, int statusId, String bookingName, String bookingPhone, int addressId,
-                                  Date bookDate, String specialRequest, String feedback, int serviceId, int appointmentId) throws SQLException {
+                                  Date serviceDate, String specialRequest, String feedback, int serviceId, int appointmentId) throws SQLException {
         String query = "UPDATE cs_appointment SET user_id = ?, status_id = ?, booking_name = ?, booking_phone = ?, address_id = ?, " +
-                       "book_date = ?, special_request = ?, feedback = ?, service_id = ? WHERE appointment_id = ?";  // Updated field name
+                       "service_date = ?, special_request = ?, feedback = ?, service_id = ? WHERE appointment_id = ?";  // Updated field name
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, userId);
@@ -181,7 +181,7 @@ public class AppointmentDAO {
             pstmt.setString(3, bookingName);
             pstmt.setString(4, bookingPhone);
             pstmt.setInt(5, addressId);
-            pstmt.setDate(6, bookDate);  // Updated field name
+            pstmt.setDate(6, serviceDate);  // Updated field name
             pstmt.setString(7, specialRequest);
             pstmt.setString(8, feedback);
             pstmt.setInt(9, serviceId);

@@ -44,7 +44,7 @@ public class AppointmentServlet extends HttpServlet {
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/view/login.jsp");
             return;
         } else {
             int userId = user.getId();
@@ -100,10 +100,10 @@ public class AppointmentServlet extends HttpServlet {
         String specialRequest = request.getParameter("special-request");
         String dateStr = request.getParameter("date");
 
-        Date bookDate = null;
+        Date serviceDate = null;
 
         if (dateStr != null && !dateStr.isEmpty()) {
-            bookDate = Date.valueOf(dateStr);
+            serviceDate = Date.valueOf(dateStr);
         }
 
         int statusId = 1; // Default status ID for a new appointment
@@ -120,7 +120,7 @@ public class AppointmentServlet extends HttpServlet {
             appointment.setBookingPhone(phone);
             appointment.setAddressId(addressId);
             appointment.setSpecialRequest(specialRequest);
-            appointment.setBookDate(bookDate);
+            appointment.setServiceDate(serviceDate);
             appointment.setFeedback(feedback);
             appointment.setServiceId(serviceId);
 
@@ -131,7 +131,7 @@ public class AppointmentServlet extends HttpServlet {
                     appointment.getBookingName(),
                     appointment.getBookingPhone(),
                     appointment.getAddressId(),
-                    appointment.getBookDate(),
+                    appointment.getServiceDate(),
                     appointment.getSpecialRequest(),
                     appointment.getFeedback(),
                     appointment.getServiceId()

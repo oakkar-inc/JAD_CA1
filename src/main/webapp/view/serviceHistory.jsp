@@ -50,9 +50,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Booked Date</th>
+                        <th>Booking Date</th>
                         <th>Name</th>
                         <th>Service</th>
+                        <th>Service Date</th>
                         <th>Price</th>
                         <th>Address</th>
                         <th>Note</th>
@@ -68,9 +69,10 @@
                             for (ServiceHistory history : serviceHistoryList) {
                     %>
                     <tr>
-                        <td><%= history.getDate() %></td>
+                        <td><%= history.getBookingDate() %></td>
                         <td><%= history.getBookingName() %></td>
                         <td><%= history.getServiceName() %></td>
+                        <td><%= history.getServiceDate() %></td>
                         <td><%= "$" + history.getPrice() %></td>
                         <td><%= history.getAddress() %></td>
                         <td class="note-column"><%= history.getNote() %></td>
@@ -101,17 +103,18 @@
                         </td>
                         <td>
                             <%
-                                if ("payment pending".equalsIgnoreCase(history.getStatus())) {
+                                if ("confirmed".equalsIgnoreCase(history.getStatus())) {
                             %>
-                                <form method="post" action="serviceHistory">
+                                <form method="get" action="checkout">
                                     <input type="hidden" name="appointmentId" value="<%= history.getAppointmentId() %>">
-                                    <input type="hidden" name="action" value="payment">
+                                    <input type="hidden" name="serviceId" value="<%= history.getServiceId() %>">
                                     <button type="submit" class="pay-btn">Pay</button>
                                 </form>
                             <%
                                 }
                             %>
                         </td>
+                        
                         <td>
                             <%
                                 if (!"completed".equalsIgnoreCase(history.getStatus()) && !"canceled".equalsIgnoreCase(history.getStatus())) {
