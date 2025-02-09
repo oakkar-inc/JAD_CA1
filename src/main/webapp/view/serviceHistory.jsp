@@ -73,7 +73,7 @@
                         <td><%= history.getBookingName() %></td>
                         <td><%= history.getServiceName() %></td>
                         <td><%= history.getServiceDate() %></td>
-                        <td><%= "$" + history.getPrice() %></td>
+                        <td><%= "S$" + history.getPrice() %></td>
                         <td><%= history.getAddress() %></td>
                         <td class="note-column"><%= history.getNote() %></td>
                         <td>
