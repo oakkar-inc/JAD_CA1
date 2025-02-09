@@ -51,7 +51,8 @@ public class ServiceHistoryDAO {
                         rs.getInt("status_id"),
                         rs.getString("status"),
                         rs.getString("feedback"),
-                        rs.getDate("service_date")
+                        rs.getDate("service_date"),
+                        rs.getInt("helper_id")
                     );
                     serviceHistoryList.add(serviceHistory);
                 }
@@ -145,7 +146,9 @@ public class ServiceHistoryDAO {
                         rs.getInt("status_id"),
                         rs.getString("status"),
                         rs.getString("feedback"),
-                        rs.getDate("service_date")
+                        rs.getDate("service_date"),
+                        rs.getInt("helper_id")
+
                     );
                     serviceHistoryList.add(serviceHistory);
                 }
@@ -201,7 +204,8 @@ public class ServiceHistoryDAO {
                         rs.getInt("status_id"),
                         rs.getString("status"),
                         rs.getString("feedback"),
-                        rs.getDate("service_date")
+                        rs.getDate("service_date"),
+                        rs.getInt("helper_id")
                     );
                     serviceHistoryList.add(serviceHistory);
                 }
@@ -254,8 +258,8 @@ public class ServiceHistoryDAO {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         int currentStatusId = rs.getInt("status_id");
-                        int currentHelperId = rs.getInt("helper_id");
                         String currentFeedback = rs.getString("feedback");
+                        int currentHelperId = rs.getInt("helper_id");
     
                         // Determine if any changes are required
                         String newFeedback = currentFeedback; // Default: keep current feedback

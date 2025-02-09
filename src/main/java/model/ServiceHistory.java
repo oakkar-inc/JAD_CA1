@@ -17,11 +17,12 @@ public class ServiceHistory {
     private String status;
     private String feedback;
     private Date serviceDate;
+    private int helperId;
 
     // Constructor
     public ServiceHistory(int userId, String email, int appointmentId, Date bookingDate, String bookingName, int serviceId, 
                             String serviceName, double price, String address, String note, int statusId, String status, 
-                            String feedback, Date serviceDate) {
+                            String feedback, Date serviceDate, int helperId) {
         this.userId = userId;
         this.email = email;
         this.appointmentId = appointmentId;
@@ -36,6 +37,7 @@ public class ServiceHistory {
         this.status = status;
         this.feedback = feedback;
         this.serviceDate = serviceDate;
+        this.helperId = helperId;
     }
 
     // Default Constructor
@@ -140,5 +142,13 @@ public class ServiceHistory {
 
     public void setServiceDate(Date serviceDate) {
         this.serviceDate = serviceDate;
+    }
+
+    public int getHelperId() {
+        return helperId;
+    }
+
+    public void setHelperId(int helperId) {
+        this.helperId = helperId;
     }
 }
