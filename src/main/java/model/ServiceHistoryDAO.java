@@ -21,7 +21,7 @@ public class ServiceHistoryDAO {
         String query = """
             SELECT a.user_id, u.email, a.appointment_id, a.service_date, a.booking_name, a.service_id, s.name, s.price, 
                    ad.floor, ad.unit, ad.postal AS postal, a.special_request AS note, 
-                   a.status_id, st.status_name AS status, a.feedback, a.created_at AS booking_date
+                   a.status_id, st.status_name AS status, a.feedback, a.created_at AS booking_date, a.helper_id
             FROM cs_appointment a
             JOIN cs_service s ON a.service_id = s.service_id
             JOIN cs_address ad ON a.address_id = ad.address_id
@@ -85,7 +85,7 @@ public class ServiceHistoryDAO {
         // Base query
         String query = "SELECT a.user_id, u.email, a.appointment_id, a.service_date, a.booking_name, a.service_id, s.name, s.price, "
                     + "ad.floor, ad.unit, ad.postal AS postal, a.special_request AS note, "
-                    + "a.status_id, st.status_name AS status, a.feedback, a.created_at AS booking_date "
+                    + "a.status_id, st.status_name AS status, a.feedback, a.created_at AS booking_date, a.helper_id "
                     + "FROM cs_appointment a "
                     + "JOIN cs_service s ON a.service_id = s.service_id "
                     + "JOIN cs_address ad ON a.address_id = ad.address_id "
@@ -172,7 +172,7 @@ public class ServiceHistoryDAO {
         String query = """
             SELECT a.user_id, u.email, a.appointment_id, a.service_date, a.booking_name, a.service_id, s.name, s.price, 
                    ad.floor, ad.unit, ad.postal AS postal, a.special_request AS note, 
-                   a.status_id, st.status_name AS status, a.feedback, a.created_at AS booking_date
+                   a.status_id, st.status_name AS status, a.feedback, a.created_at AS booking_date, a.helper_id
             FROM cs_appointment a
             JOIN cs_service s ON a.service_id = s.service_id
             JOIN cs_address ad ON a.address_id = ad.address_id
@@ -248,7 +248,7 @@ public class ServiceHistoryDAO {
      * @throws SQLException
      */
     public void updateAppointmentStatus(int appointmentId, int statusId) throws SQLException {
-        String currentStatusQuery = "SELECT status_id, feedback FROM cs_appointment WHERE appointment_id = ?";
+        String currentStatusQuery = "SELECT status_id, feedback, helper_id FROM cs_appointment WHERE appointment_id = ?";
         String updateStatusQuery = "UPDATE cs_appointment SET status_id = ?, helper_id = ?, feedback = ? WHERE appointment_id = ?";
         
         try (Connection conn = DatabaseConnection.getConnection()) {
