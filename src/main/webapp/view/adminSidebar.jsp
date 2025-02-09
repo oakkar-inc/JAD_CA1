@@ -22,6 +22,12 @@
 					<p>Booking</p>
 				</div>
 			</a>
+			<a href="<%=request.getContextPath()%>/view/report">
+				<div class="sidebar-navitem">
+					<img src="<%=request.getContextPath()%>/view/assets/report.png" style="filter: invert(100%);">
+					<p>Report</p>
+				</div>
+			</a>
 		</div>
 	</div>
 </div>
