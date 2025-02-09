@@ -57,7 +57,7 @@ public class UserInfoServlet extends HttpServlet {
 			user.setAddresses(addressList);
 			
             if(byAdmin) {
-            	response.sendRedirect(request.getContextPath() + "/view/manageUser");
+            	response.sendRedirect(request.getContextPath() + "/ManageUser");
             } else {
             	HttpSession session = request.getSession(false);
                 session.setAttribute("user", user);

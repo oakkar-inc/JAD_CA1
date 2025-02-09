@@ -11,6 +11,9 @@
 <title>User Management Dashboard</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/view/style/global.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/view/style/profile.css">
+<script>
+        const contextPath = "<%= request.getContextPath() %>";
+</script>
 </head>
 
 <body>
@@ -74,7 +77,7 @@
 						String addressStr = address.toString();
 						out.println("<div class='edit-btn-container'>");
 						out.println("<label for='address-" + addressNo + "'>Address " + addressNo + "<br></label>");
-						out.println("<a href="+request.getContextPath()+"'/view/editAddress.jsp?addressId=" + address.getId() + "&postal=" + address.getPostal() + "&floor="
+						out.println("<a href='"+request.getContextPath()+"/view/editAddress.jsp?addressId=" + address.getId() + "&postal=" + address.getPostal() + "&floor="
 						+ address.getFloor() + "&unit=" + address.getUnit()
 						+ "&byAdmin=true" + "'><button class='edit-button' type='button'>Edit</button></a>");
 						out.println("<button class='delete-button-address delete-button' data-address-id='" + address.getId() + "' type='button'>Delete</button>");
@@ -83,7 +86,7 @@
 						+ "' value='" + addressStr + "' readonly>");
 					}
 					%>
-					<a href=<%= "addAddress.jsp?userId=" +  curUser.getId()%>>
+					<a href=<%= request.getContextPath()+"/view/addAddress.jsp?userId=" +  curUser.getId()%>>
 					<button class="form-button secondary-bg" class="addAddressBtns">+ Add new address</button>
 					</a>
 					<br>
@@ -96,7 +99,7 @@
 		</div>
 	</div>
 	</div>
-	<script src="script/profile.js"></script>
-	<script src="script/manageUser.js"></script>
+	<script src="<%=request.getContextPath()%>/view/script/profile.js"></script>
+	<script src="<%=request.getContextPath()%>/view/script/manageUser.js"></script>
 </body>
 </html>

@@ -3,13 +3,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 	for (let i = 0; i < delBtns.length; i++) {
 		
 		delBtns[i].addEventListener("click", function() {
+			console.log("deleteAddress clicked");
 			const addressId = this.getAttribute("data-address-id");
-			fetch(`/JAD_CA1/api/address/${addressId}`, {
+			fetch(`${contextPath}/api/address/${addressId}`, {
 				method: "DELETE"
-			}).then(() => location.href = "manageUser")
+			}).then(() => location.href = `${contextPath}/ManageUser`)
 				.catch(error => {
 					console.error('Error:', error)
-					location.href = "manageUser"
+					location.href = `${contextPath}/manageUser`
 				});
 
 
@@ -20,14 +21,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 		for (let i = 0; i < delBtns.length; i++) {
 			
 			delUserBtns[i].addEventListener("click", function() {
-				
+				console.log("deleteUser clicked");
 				const userId = this.getAttribute("data-user-id");
-				fetch(`/JAD_CA1/api/user/${userId}`, {
+				fetch(`${contextPath}/api/user/${userId}`, {
 					method: "DELETE"
-				}).then(() => location.href = "manageUser")
+				}).then(() => location.href = `${contextPath}/ManageUser`)
 					.catch(error => {
 						console.error('Error:', error)
-						location.href = "manageUser"
+						location.href = `${contextPath}/ManageUser`
 					});
 
 
