@@ -254,11 +254,12 @@ public class ServiceHistoryDAO {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         int currentStatusId = rs.getInt("status_id");
+                        int currentHelperId = rs.getInt("helper_id");
                         String currentFeedback = rs.getString("feedback");
     
                         // Determine if any changes are required
                         String newFeedback = currentFeedback; // Default: keep current feedback
-                        Integer newHelperId = null; // Default: no helper_id (null)
+                        Integer newHelperId = currentHelperId; // Default: keep current helper_id
     
                         // Check if status is changed to 'pending'
                         if (statusId == 1) { // Assuming 'pending' status has ID 1

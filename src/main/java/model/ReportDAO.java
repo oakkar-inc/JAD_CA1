@@ -63,13 +63,13 @@ public class ReportDAO {
 
     public List<Map<String, Object>> getMonthlyEarnings() throws SQLException {
     List<Map<String, Object>> monthlyEarnings = new ArrayList<>();
-    String query = "SELECT EXTRACT(MONTH FROM a.service_date) AS month, " +
-                   "EXTRACT(YEAR FROM a.service_date) AS year, " +
+    String query = "SELECT EXTRACT(MONTH FROM a.created_at) AS month, " +
+                   "EXTRACT(YEAR FROM a.created_at) AS year, " +
                    "SUM(s.price) AS total_earned " +
                    "FROM cs_appointment a " +
                    "JOIN cs_service s ON a.service_id = s.service_id " +
                    "WHERE a.status_id IN (3, 4, 5) " +  // Paid status
-                   "GROUP BY EXTRACT(YEAR FROM a.service_date), EXTRACT(MONTH FROM a.service_date) " +
+                   "GROUP BY EXTRACT(YEAR FROM a.created_at), EXTRACT(MONTH FROM a.created_at) " +
                    "ORDER BY year, month";
 
     try (Connection conn = DatabaseConnection.getConnection();
