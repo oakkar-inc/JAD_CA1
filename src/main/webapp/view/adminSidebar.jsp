@@ -16,6 +16,12 @@
 					<p>Category</p>
 				</div>
 			</a>
+			<a href="<%=request.getContextPath()%>/view/manageBooking">
+				<div class="sidebar-navitem">
+					<img src="<%=request.getContextPath()%>/view/assets/booking.png" style="filter: invert(100%);">
+					<p>Booking</p>
+				</div>
+			</a>
 		</div>
 	</div>
 </div>

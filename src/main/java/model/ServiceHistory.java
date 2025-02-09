@@ -3,6 +3,8 @@ package model;
 import java.util.Date;
 
 public class ServiceHistory {
+    private int userId;
+    private String email;
     private int appointmentId;
     private Date bookingDate;
     private String bookingName;
@@ -11,13 +13,17 @@ public class ServiceHistory {
     private double price;
     private String address;
     private String note;
+    private int statusId;
     private String status;
     private String feedback;
     private Date serviceDate;
 
     // Constructor
-    public ServiceHistory(int appointmentId, Date bookingDate, String bookingName, int serviceId, String serviceName, double price,
-                          String address, String note, String status, String feedback, Date serviceDate) {
+    public ServiceHistory(int userId, String email, int appointmentId, Date bookingDate, String bookingName, int serviceId, 
+                            String serviceName, double price, String address, String note, int statusId, String status, 
+                            String feedback, Date serviceDate) {
+        this.userId = userId;
+        this.email = email;
         this.appointmentId = appointmentId;
         this.bookingDate = bookingDate;
         this.bookingName = bookingName;
@@ -26,6 +32,7 @@ public class ServiceHistory {
         this.price = price;
         this.address = address;
         this.note = note;
+        this.statusId = statusId;
         this.status = status;
         this.feedback = feedback;
         this.serviceDate = serviceDate;
@@ -35,12 +42,16 @@ public class ServiceHistory {
     public ServiceHistory() {}
 
     // Getters and Setters
-    public int getAppointmentId() {
-        return appointmentId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
+    public String getEmail() {
+        return email;
+    }
+
+    public int getAppointmentId() {
+        return appointmentId;
     }
 
     public Date getBookingDate() {
@@ -97,6 +108,14 @@ public class ServiceHistory {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     public String getStatus() {
