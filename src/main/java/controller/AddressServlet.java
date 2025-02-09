@@ -57,7 +57,7 @@ public class AddressServlet extends HttpServlet {
 	        userDAO.insertUserAddressRelation(userId, addressId);
 	        
 	        if (byAdmin) {
-	        	response.sendRedirect("/JAD_CA1/view/manageUser");
+	        	response.sendRedirect(request.getContextPath() + "/ManageUser");
 	        	return;
 	        }
 	        
@@ -65,7 +65,7 @@ public class AddressServlet extends HttpServlet {
             HttpSession session = request.getSession(false);
             User user = (User) session.getAttribute("user");
             user.setAddresses(addressList);
-			response.sendRedirect("/JAD_CA1/view/profile.jsp");
+			response.sendRedirect(request.getContextPath() + "/view/profile.jsp");
             return;
 		} catch (Exception e ) {
 			System.out.println(e.getMessage());
@@ -101,7 +101,7 @@ public class AddressServlet extends HttpServlet {
             addressDAO.updateAddress(address);
             
             if(byAdmin) {
-            	response.sendRedirect("/JAD_CA1/view/manageUser");
+            	response.sendRedirect(request.getContextPath() + "/ManageUser");
                 return;
             }
             
@@ -112,7 +112,7 @@ public class AddressServlet extends HttpServlet {
           	user.setAddresses(addressList);
             session.setAttribute("user", user);
             
-            response.sendRedirect("/JAD_CA1/view/profile.jsp");
+            response.sendRedirect(request.getContextPath() + "/view/profile.jsp");
             return;
 		} catch (Exception e){
 			System.out.println(e.getMessage());
@@ -132,7 +132,7 @@ public class AddressServlet extends HttpServlet {
             addressDAO.deleteAddress(addressId);
             
             if(byAdmin) {
-            	response.sendRedirect("/JAD_CA1/view/manageUser");
+            	response.sendRedirect(request.getContextPath() + "/ManageUser");
                 return;
             }
             
@@ -142,7 +142,7 @@ public class AddressServlet extends HttpServlet {
             user.setAddresses(addressList);
             session.setAttribute("user", user);
     
-            response.sendRedirect("/JAD_CA1/view/profile.jsp");
+            response.sendRedirect(request.getContextPath() + "/view/profile.jsp");
             return;
         } catch (Exception e) {
             System.out.println(e.getMessage());

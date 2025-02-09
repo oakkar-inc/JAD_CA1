@@ -1,7 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.getElementById('cancelBtn');
     cancelBtn.addEventListener('click', function() {
-        location.href = 'profile.jsp';
+		
+		const byAdmin = urlParams.get("byAdmin") || false;
+		
+		if (byAdmin) {
+			location.href = `${contextPath}/ManageUser`;
+			            return;
+		}
+		
+        location.href=`${contextPath}/view/profile.jsp`
     });
 
 	const updateBtn = document.getElementById('updateBtn');
@@ -31,9 +39,19 @@ document.addEventListener('DOMContentLoaded', function() {
 					byAdmin: byAdmin
 	            })
 	        }).then(response => response.json())
-			  .then(() => location.href=`${contextPath}/view/profile.jsp`)
+			  .then(() => {
+				if (byAdmin) {
+					location.href = `${contextPath}/ManageUser`;
+					return;
+				}
+				location.href=`${contextPath}/view/profile.jsp`	
+			  })
 			  .catch(error => {
 				console.error('Error:', error)
+				if (byAdmin) {
+					location.href = `${contextPath}/ManageUser`;
+					return;
+				}
 				location.href=`${contextPath}/view/profile.jsp`
 			});
 	    });

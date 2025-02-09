@@ -67,10 +67,10 @@ public class UserServlet extends HttpServlet {
 				int addressId = addressDAO.insertAddress(postal, floor, unit);
 				userDAO.insertUserAddressRelation(userId, addressId);
 
-				response.sendRedirect("/JAD_CA1/view/manageUser");
+				response.sendRedirect(request.getContextPath() +"/ManageUser");
 				return;
 			}
-			response.sendRedirect("/JAD_CA1/view/manageUser");
+			response.sendRedirect(request.getContextPath() + "/ManageUser");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			response.sendRedirect("/JAD_CA1/view/addUser.jsp?errMsg=" + "error");
@@ -86,7 +86,7 @@ public class UserServlet extends HttpServlet {
 		try {
 			userDAO.deleteUser(userId);
 
-			response.sendRedirect("/JAD_CA1/view/manageUser");
+			response.sendRedirect(request.getContextPath() + "/ManageUser");
 			return;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
