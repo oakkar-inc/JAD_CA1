@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Nav-Bar</title>
+	<title>Sparkle</title>
 	<link rel="stylesheet" href="/JAD_CA1/view/style/navbar.css">
 	<link rel="stylesheet" href="/JAD_CA1/view/style/global.css">
 </head>

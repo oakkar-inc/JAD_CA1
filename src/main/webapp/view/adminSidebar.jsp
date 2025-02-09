@@ -4,7 +4,7 @@
 <div class="sidebar-container">
 	<div class="sidebar">
 		<div class="sidebar-nav h3">
-			<a href="<%=request.getContextPath()%>/manageUser">
+			<a href="<%=request.getContextPath()%>/ManageUser">
 				<div class="sidebar-navitem">
 					<img src="<%=request.getContextPath()%>/view/assets/user-square.png">
 					<p>User</p>
